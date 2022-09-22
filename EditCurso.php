@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('funciones.php');
     
     if (!empty($_POST['Nom'])) {
         $name= $_POST['Nom'];
@@ -13,8 +14,8 @@
         $_SESSION['rol']= 'admin';
 
 
-        $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
-        $sql= "UPDATE cursos SET Nom= '$name', Descripcion= '$desc', Hores='$horas', Data_inici='$inici', Data_final='$final', Dni_Profesores='$prof' WHERE Codi=".$_SESSION['id']."";
+        $connection= connection();
+        $sql= "UPDATE cursos SET Nom= '$name', Descripcion= '$desc', Hores='$horas', Data_inici='$inici', Data_final='$final', Dni_Profesores='$prof' WHERE id=".$_SESSION['id']."";
 
         $result= mysqli_query($connection, $sql);
 
@@ -26,7 +27,7 @@
 
 <form action="EditCurso.php" method="POST" name="InicioSession">
             <?php
-                $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
+                $connection= connection();
         
                 //GUARDAR NOMBRE PROFESORES
                 $sql= "SELECT Nom FROM profesores";
@@ -46,7 +47,7 @@
 
                 $_SESSION['id']= $_GET['curso'];
 
-                $sql3= "SELECT * FROM cursos WHERE CODI=".$_GET['curso'];
+                $sql3= "SELECT * FROM cursos WHERE id=".$_GET['curso'];
                 $result3= mysqli_query($connection, $sql3);
                 
                 $row= mysqli_fetch_assoc($result3);

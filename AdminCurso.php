@@ -14,6 +14,7 @@
 
 <?php
     session_start();
+    include('funciones.php');
 ?>
     <form action="AdminCurso.php" method="POST" name="buscador">
         Buscador:<input type="text" id="buscador" name="buscador" placeholder="Buscador"></input>
@@ -38,9 +39,9 @@
     
 
     if(isset($_POST['buscador']) && $_POST['buscador']!=""){
-        $connection2= mysqli_connect('localhost', 'root', '', 'infoBDN');
+        $connection= connection();
         $sql3= "SELECT * FROM cursos WHERE Nom LIKE '%".$_POST['buscador']."%'";
-        if($result3= mysqli_query($connection2, $sql3)){
+        if($result3= mysqli_query($connection, $sql3)){
             while($row2= $result3->fetch_assoc()){
                 $llista2[]= $row2;
             }
@@ -53,14 +54,14 @@
             foreach($valor as $clave1 => $valor1){
                 echo "<td> ".$valor1." </td>";
             }
-            echo "<td> <a href='EditCurso.php?curso=".$valor['Codi']."'>Editar</a> </td>";
-            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['Codi']."'>Borrar</a> </td>";
+            echo "<td> <a href='EditCurso.php?curso=".$valor['id']."'>Editar</a> </td>";
+            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['id']."'>Borrar</a> </td>";
             echo "</tr>";
         }
         
         echo("</table>");
     }else{
-        $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
+        $connection= connection();
         $sql2= "SELECT * FROM cursos";
         if($result2= mysqli_query($connection, $sql2)){
             while($row= $result2->fetch_assoc()){
@@ -72,8 +73,8 @@
             foreach($valor as $clave1 => $valor1){
                 echo "<td> ".$valor1." </td>";
             }
-            echo "<td> <a href='EditCurso.php?curso=".$valor['Codi']."'>Editar</a> </td>";
-            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['Codi']."'>Borrar</a> </td>";
+            echo "<td> <a href='EditCurso.php?curso=".$valor['id']."'>Editar</a> </td>";
+            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['id']."'>Borrar</a> </td>";
             echo "</tr>";
         }
         

@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('funciones.php');
     
     if (!empty($_POST['Nom'])) {
         $name= $_POST['Nom'];
@@ -12,7 +13,7 @@
         
         $_SESSION['rol']= 'admin';
 
-        $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
+        $connection= connection();
         $sql= "INSERT INTO cursos (Nom,Descripcion,Hores,Data_inici,Data_final,Dni_Profesores) VALUES ('$name', '$desc', '$horas', '$inici', '$final','$prof')";
         $result= mysqli_query($connection, $sql);
 
@@ -24,7 +25,7 @@
 
 <form action="SignUpCurso.php" method="POST" name="InicioSession">
             <?php
-                $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
+                $connection= connection();
         
                 //GUARDAR NOMBRE PROFESORES
                 $sql= "SELECT Nom FROM profesores";

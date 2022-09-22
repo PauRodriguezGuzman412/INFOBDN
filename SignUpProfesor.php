@@ -1,5 +1,6 @@
 <?php
     session_start();
+include('funciones.php');
     
     if (!empty($_POST['DNI'])) {
         $dni= $_POST['DNI'];
@@ -22,8 +23,8 @@
         }else print ("No se ha podido subir el fichero\n");
 
 
-        $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
-        $sql= "INSERT INTO profesores (DNI,Nom,Cognoms,Password,Titol,Foto) VALUES ('$dni', '$name', '$surnames', '$pass', '$title','$directorio')";
+        $connection= connection();
+        $sql= "INSERT INTO profesores (DNI,Nom,Cognoms,Password,Titol,Foto) VALUES ('$dni', '$name', '$surnames', md5('$pass'), '$title','$directorio')";
         var_dump($sql);
         $result= mysqli_query($connection, $sql);
 

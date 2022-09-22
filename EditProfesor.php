@@ -11,7 +11,7 @@
         $_SESSION['rol']= 'admin';
        
         $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
-        $sql= "UPDATE profesores SET DNI= '$dni', Nom= '$name', Cognoms='$surnames', Password='$pass', Titol='$title' WHERE DNI= '$dni'";
+        $sql= "UPDATE profesores SET DNI= '$dni', Nom= '$name', Cognoms='$surnames', Password= md5('$pass'), Titol='$title' WHERE DNI= '$dni'";
         var_dump($sql);
         $result= mysqli_query($connection, $sql);
 

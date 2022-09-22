@@ -10,16 +10,17 @@
 
     <?php
         session_start();
+        include('funciones.php');
 
-        if (isset($_POST['DNI']) && $_POST['DNI']=='49988375R') {
+        if (isset($_POST['DNI']) && $_POST['DNI']=='123') {
             
             $dni= $_POST['DNI'];
             $pass= $_POST['password'];
             
             $_SESSION['rol']= 'admin';
 
-            $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
-            $sql= "SELECT DNI Password FROM administrador WHERE DNI= '$dni' AND Password= '$pass'";
+            $connection= connection();
+            $sql= "SELECT DNI Password FROM admin WHERE DNI= '$dni' AND Password= '$pass'";
             $result= mysqli_query($connection, $sql);
 
             ?>
