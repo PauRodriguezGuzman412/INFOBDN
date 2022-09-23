@@ -71,10 +71,20 @@
             foreach($llista as $clave => $valor){
             echo "<tr>";
             foreach($valor as $clave1 => $valor1){
-                echo "<td> ".$valor1." </td>";
+                if($valor['activo']!=$valor1){
+                    echo "<td> ".$valor1." </td>";
+                }else if($valor['activo']==$valor1 && $valor['activo']==0){
+                    echo "<td> No </td>";
+                }else if($valor['activo']==$valor1 && $valor['activo']==1){
+                    echo "<td> Si </td>";
+                }
             }
             echo "<td> <a href='EditCurso.php?curso=".$valor['Codi']."'>Editar</a> </td>";
-            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['Codi']."'>Borrar</a> </td>";
+            if($valor['activo']==1){
+                echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['Codi']."'>Borrar</a> </td>";
+            }else{
+                echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['Codi']."'>Activar</a> </td>";
+            }
             echo "</tr>";
         }
         

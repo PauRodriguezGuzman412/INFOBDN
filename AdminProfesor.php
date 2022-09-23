@@ -14,7 +14,6 @@ include('funciones.php');
     echo("<td>DNI</td>");
     echo("<td>Nom</td>");
     echo("<td>Cognoms</td>");
-    echo("<td>Password</td>");
     echo("<td>Titol</td>");
     echo("<td>Foto</td>");
     echo("<td>Activo</td>");
@@ -62,8 +61,12 @@ include('funciones.php');
             foreach($valor as $clave1 => $valor1){
                 if($valor['Foto']==$valor1){
                     echo "<td> <img width='50' height='50' src=".$valor1."> </td>";
-                }else{
+                }else if($valor['Password']!=$valor1 && $valor['activo']!=$valor1){
                     echo "<td> ".$valor1." </td>";
+                }else if($valor['activo']==$valor1 && $valor['activo']==0){
+                    echo "<td> No </td>";
+                }else if($valor['activo']==$valor1 && $valor['activo']==1){
+                    echo "<td> Si </td>";
                 }
             }
     
