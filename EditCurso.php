@@ -1,7 +1,7 @@
 <?php
     session_start();
     include('funciones.php');
-    
+
     if (!empty($_POST['Nom'])) {
         $name= $_POST['Nom'];
         $desc= $_POST['Descripcion'];
@@ -15,12 +15,12 @@
 
 
         $connection= connection();
-        $sql= "UPDATE cursos SET Nom= '$name', Descripcion= '$desc', Hores='$horas', Data_inici='$inici', Data_final='$final', Dni_Profesores='$prof' WHERE id=".$_SESSION['id']."";
+        $sql= "UPDATE cursos SET Nom= '$name', Descripcion= '$desc', Hores='$horas', Data_inici='$inici', Data_final='$final', Dni_Profesores='$prof' WHERE Codi=".$_SESSION['id']."";
 
         $result= mysqli_query($connection, $sql);
 
         ?>
-            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
+            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminCurso.php">
         <?php
     }
 ?>
@@ -47,10 +47,7 @@
 
                 $_SESSION['id']= $_GET['curso'];
 
-                $sql3= "SELECT * FROM cursos WHERE id=".$_GET['curso'];
-                $result3= mysqli_query($connection, $sql3);
-                
-                $row= mysqli_fetch_assoc($result3);
+                $row= EditarCursos($_GET['curso']);
 
             ?>
             
@@ -81,3 +78,4 @@
     </p>
     <button type="submit">Enviar</button>
 </form>
+<a href="AdminCurso.php">Volver atrás</a>

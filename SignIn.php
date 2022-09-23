@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión como administrador</title>
+    <title>Inicar Sessión</title>
 </head>
 <body>
 
     <?php
         session_start();
         include('funciones.php');
-        
-        if (isset($_POST['DNI']) && $_POST['DNI']=='49988375R') {
+
+        if (isset($_POST['email'])) {
             
-            $dni= $_POST['DNI'];
+            $email= $_POST['email'];
             $pass= $_POST['password'];
             
-            $_SESSION['rol']= 'admin';
+            $_SESSION['rol']= 'alumno';
 
             $connection= connection();
-            $sql= "SELECT DNI Password FROM administrador WHERE DNI= '$dni' AND Password= '$pass'";
+            $sql= "SELECT email Password FROM alumnos WHERE email= '$email' AND Password= '$pass'";
             $result= mysqli_query($connection, $sql);
 
             ?>
@@ -29,12 +29,11 @@
         }
     ?>
 
-    <form action="SignInAdmin.php" method="POST">
+    <form action="SignIn.php" method="POST">
         <h1>Iniciar Sessión</h1>
-        <p>DNI: <input type="text" name="DNI" required></p>    
-        <p>Contraseña: <input type="password" name="password" required></p>
+        <p>DNI: <input type="text" name="email" required></p>    
+        <p>Contraseña: <input type="password" name="password" required ></p>
         <button type="submit">Enviar</button>
     </form>
-    <a href="index.php">Volver atrás</a>
 </body>
 </html>

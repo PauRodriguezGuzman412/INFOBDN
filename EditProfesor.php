@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('funciones.php');
 
     if (!empty($_POST['DNI'])) {
         $dni= $_POST['DNI'];
@@ -10,19 +11,19 @@
         
         $_SESSION['rol']= 'admin';
        
-        $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
-        $sql= "UPDATE profesores SET DNI= '$dni', Nom= '$name', Cognoms='$surnames', Password= md5('$pass'), Titol='$title' WHERE DNI= '$dni'";
+        $connection= connection();
+        $sql= "UPDATE profesores SET DNI= '$dni', Nom= '$name', Cognoms='$surnames', Password=md5('$pass'), Titol='$title' WHERE DNI= '$dni'";
         var_dump($sql);
         $result= mysqli_query($connection, $sql);
 
         ?>
-            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
+            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminProfesor.php">
         <?php
     }
 ?>
 
 <?php
-    $connection= mysqli_connect('localhost', 'root', '', 'infoBDN');
+    $connection= connection();
     $sql= "SELECT * FROM profesores WHERE DNI=".$_GET['curso'];
     $result= mysqli_query($connection, $sql);
     
@@ -37,3 +38,4 @@
     <p>Titol: <input type="text" name="Titol" value="<?php echo($row['Titol']); ?>" required></p>
     <button type="submit">Enviar</button>
 </form>
+<a href="AdminProfesor.php">Volver atrás</a>

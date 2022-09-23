@@ -15,8 +15,8 @@
 
                     <a href="SignUpProfesor.php">Registrar profesor</a>
                     <a href="SignUpCurso.php">Registrar curso</a>
-                    <a href="AdminProfesor.php">Edit profesor</a>
-                    <a href="AdminCurso.php">Edit curso</a>
+                    <a href="AdminProfesor.php">Ver listado de profesores</a>
+                    <a href="AdminCurso.php">Ver listado de cursos</a>
     
                     <?php
                 }

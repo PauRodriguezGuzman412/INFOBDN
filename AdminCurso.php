@@ -39,9 +39,9 @@
     
 
     if(isset($_POST['buscador']) && $_POST['buscador']!=""){
-        $connection= connection();
+        $connection2= connection();
         $sql3= "SELECT * FROM cursos WHERE Nom LIKE '%".$_POST['buscador']."%'";
-        if($result3= mysqli_query($connection, $sql3)){
+        if($result3= mysqli_query($connection2, $sql3)){
             while($row2= $result3->fetch_assoc()){
                 $llista2[]= $row2;
             }
@@ -54,8 +54,8 @@
             foreach($valor as $clave1 => $valor1){
                 echo "<td> ".$valor1." </td>";
             }
-            echo "<td> <a href='EditCurso.php?curso=".$valor['id']."'>Editar</a> </td>";
-            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['id']."'>Borrar</a> </td>";
+            echo "<td> <a href='EditCurso.php?curso=".$valor['Codi']."'>Editar</a> </td>";
+            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['Codi']."'>Borrar</a> </td>";
             echo "</tr>";
         }
         
@@ -73,15 +73,13 @@
             foreach($valor as $clave1 => $valor1){
                 echo "<td> ".$valor1." </td>";
             }
-            echo "<td> <a href='EditCurso.php?curso=".$valor['id']."'>Editar</a> </td>";
-            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['id']."'>Borrar</a> </td>";
+            echo "<td> <a href='EditCurso.php?curso=".$valor['Codi']."'>Editar</a> </td>";
+            echo "<td> <a href='eliminarCurso.php?eliminar=".$valor['activo']."&codi=".$valor['Codi']."'>Borrar</a> </td>";
             echo "</tr>";
         }
         
         echo("</table>");
     }
-
-
     
-
 ?>
+<a href="index.php">Volver atrás</a>

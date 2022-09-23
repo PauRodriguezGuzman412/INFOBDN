@@ -1,7 +1,7 @@
 <?php
     session_start();
-include('funciones.php');
-    
+    include('funciones.php');
+
     if (!empty($_POST['DNI'])) {
         $dni= $_POST['DNI'];
         $name= $_POST['Nom'];
@@ -44,3 +44,4 @@ include('funciones.php');
     <p>Avatar: <input type="file" name="Foto" accept=".png, .jpg, .jpeg" required></p>
     <button type="submit">Enviar</button>
 </form>
+<a href="index.php">Volver atrás</a>

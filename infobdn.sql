@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2022 a las 20:33:54
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 23-09-2022 a las 08:49:27
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `admin`
+-- Estructura de tabla para la tabla `administrador`
 --
 
-CREATE TABLE `admin` (
-  `DNI` varchar(11) NOT NULL,
+CREATE TABLE `administrador` (
+  `DNI` varchar(9) NOT NULL,
   `Password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `admin`
+-- Volcado de datos para la tabla `administrador`
 --
 
-INSERT INTO `admin` (`DNI`, `Password`) VALUES
-('123', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `administrador` (`DNI`, `Password`) VALUES
+('49988375R', '21232f297a57a5a743894a0e4a801fc3');
 
 -- --------------------------------------------------------
 
@@ -46,12 +46,13 @@ INSERT INTO `admin` (`DNI`, `Password`) VALUES
 --
 
 CREATE TABLE `alumnos` (
-  `Email` varchar(20) NOT NULL,
-  `DNI` varchar(11) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `DNI` varchar(9) NOT NULL,
   `Nom` text NOT NULL,
-  `Cognoms` int(50) NOT NULL,
+  `Password` varchar(8) NOT NULL,
+  `Cognoms` text NOT NULL,
   `Edat` int(11) NOT NULL,
-  `Foto` varchar(50) NOT NULL
+  `Foto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -61,22 +62,23 @@ CREATE TABLE `alumnos` (
 --
 
 CREATE TABLE `cursos` (
-  `id` int(11) NOT NULL,
+  `Codi` int(11) NOT NULL,
   `Nom` text NOT NULL,
-  `Descripcion` varchar(50) NOT NULL,
+  `Descripcion` text NOT NULL,
   `Hores` int(11) NOT NULL,
   `Data_inici` date NOT NULL,
   `Data_final` date NOT NULL,
-  `Dni_Profesores` varchar(11) NOT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT 1
+  `Dni_Profesores` varchar(9) NOT NULL,
+  `activo` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `cursos`
 --
 
-INSERT INTO `cursos` (`id`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data_final`, `Dni_Profesores`, `activo`) VALUES
-(1, 'mates', 'fjksdjfl', 21334, '2022-09-21', '2022-09-09', '1', 1);
+INSERT INTO `cursos` (`Codi`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data_final`, `Dni_Profesores`, `activo`) VALUES
+(5, 'English', 'Deez nuts', 69, '2022-09-17', '2022-10-02', '1', 1),
+(6, 'Mates', 'Muchos numeross', 69, '2022-09-17', '2022-10-02', '123', 0);
 
 -- --------------------------------------------------------
 
@@ -85,9 +87,8 @@ INSERT INTO `cursos` (`id`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data_f
 --
 
 CREATE TABLE `matriculas` (
-  `Id_Alumno` varchar(20) NOT NULL,
-  `Id_Cursos` int(11) NOT NULL,
-  `Nota` int(11) NOT NULL
+  `Codi` int(11) NOT NULL,
+  `DNI_Alumnos` varchar(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -97,25 +98,36 @@ CREATE TABLE `matriculas` (
 --
 
 CREATE TABLE `profesores` (
-  `DNI` varchar(11) NOT NULL,
+  `DNI` varchar(9) NOT NULL,
   `Nom` text NOT NULL,
   `Cognoms` text NOT NULL,
   `Password` varchar(50) NOT NULL,
-  `Titol` varchar(50) NOT NULL,
-  `Foto` varchar(50) NOT NULL,
-  `Activo` tinyint(1) NOT NULL DEFAULT 1
+  `Titol` text NOT NULL,
+  `Foto` varchar(100) NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `profesores`
 --
 
-INSERT INTO `profesores` (`DNI`, `Nom`, `Cognoms`, `Password`, `Titol`, `Foto`, `Activo`) VALUES
-('1', 'pau', 'rodriguez', 'c4ca4238a0b923820dcc509a6f75849b', 'si', 'img/1-20220909_2008502.jpg', 0);
+INSERT INTO `profesores` (`DNI`, `Nom`, `Cognoms`, `Password`, `Titol`, `Foto`, `activo`) VALUES
+('1', 'assadaasdsad', 'testfdasdsfasdf', 'fb469d7ef430b0baf0cab6c436e70375', 'test', 'img/1-3-wpa9xvcq.png', 0),
+('12', 'pau', 'apellidos', 'd58e3582afa99040e27b92b13c8f2280', 'sdfsd', 'img/12-original.jpg', 0),
+('123', 'holi', 'holo', '202cb962ac59075b964b07152d234b70', '69', 'img/123-original.jpg', 1),
+('22', 'aAAAAAAAAAAA', 'oOOOOOOOOOOOOOOOOOOOO', '098f6bcd4621d373cade4e832627b4f6', 'test', 'img/22-original.jpg\r\n', 0),
+('b', 'b', 'b', '92eb5ffee6ae2fec3ad71c777531578f', 'b', 'img/b-original.jpg', 0),
+('test', 'test', 'test', '28b662d883b6d76fd96e4ddc5e9ba780', 'test', 'img/test-3-wpa9xvcq.png', 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  ADD PRIMARY KEY (`DNI`);
 
 --
 -- Indices de la tabla `alumnos`
@@ -127,16 +139,15 @@ ALTER TABLE `alumnos`
 -- Indices de la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Dni_Profesores` (`Dni_Profesores`);
+  ADD PRIMARY KEY (`Codi`),
+  ADD KEY `Cursos-Alumnos` (`Dni_Profesores`);
 
 --
 -- Indices de la tabla `matriculas`
 --
 ALTER TABLE `matriculas`
-  ADD PRIMARY KEY (`Id_Alumno`),
-  ADD KEY `Id_Cursos` (`Id_Cursos`),
-  ADD KEY `Id_Alumno` (`Id_Alumno`);
+  ADD PRIMARY KEY (`Codi`,`DNI_Alumnos`),
+  ADD KEY `DNI_Alumnos` (`DNI_Alumnos`);
 
 --
 -- Indices de la tabla `profesores`
@@ -152,7 +163,7 @@ ALTER TABLE `profesores`
 -- AUTO_INCREMENT de la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -162,14 +173,14 @@ ALTER TABLE `cursos`
 -- Filtros para la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  ADD CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`Dni_Profesores`) REFERENCES `profesores` (`DNI`);
+  ADD CONSTRAINT `Cursos-Alumnos` FOREIGN KEY (`Dni_Profesores`) REFERENCES `profesores` (`DNI`);
 
 --
 -- Filtros para la tabla `matriculas`
 --
 ALTER TABLE `matriculas`
-  ADD CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`Id_Cursos`) REFERENCES `cursos` (`id`),
-  ADD CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`Id_Alumno`) REFERENCES `alumnos` (`Email`);
+  ADD CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`DNI_Alumnos`) REFERENCES `alumnos` (`DNI`),
+  ADD CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`Codi`) REFERENCES `cursos` (`Codi`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
