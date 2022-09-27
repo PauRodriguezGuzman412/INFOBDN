@@ -1,0 +1,58 @@
+*{
+    background-color: #dcdcdc;
+    margin: 0;
+    padding: 0;
+}
+
+div.div{
+    display: flex;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+    margin-bottom: 50px;
+    background-color: lightblue;
+}
+
+.inicioSession{
+    font-size:xx-large;
+    background-color: lightblue;
+    margin: 0px auto;
+}
+
+.general{
+    background-color: lightseagreen;
+    text-decoration: none;
+    border: yellow solid 1px;
+    font-size: x-large;
+}
+
+.a_fil{
+    display: block;
+    background-color: lightblue;
+    padding-top: 30px;
+    text-align: center;
+}
+
+img{
+    width: 100px;
+    height: 125px;
+    background-color: lightblue;
+}
+
+a.admin{
+    width: 30%;
+    border: black solid 1px;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-right: 10%;
+}
+
+div.a1{
+    width:50%;
+    margin: 0px auto;
+}
