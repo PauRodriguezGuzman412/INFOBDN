@@ -23,11 +23,13 @@
 ?>
 
 <?php
-    $connection= connection();
-    $sql= "SELECT * FROM profesores WHERE DNI=".$_GET['curso'];
-    $result= mysqli_query($connection, $sql);
-    
-    $row= mysqli_fetch_assoc($result);
+    if(isset($_SESSION['rol'])){
+        if($_SESSION['rol']=='admin'){
+            $connection= connection();
+            $sql= "SELECT * FROM profesores WHERE DNI=".$_GET['curso'];
+            $result= mysqli_query($connection, $sql);
+            
+            $row= mysqli_fetch_assoc($result);
 ?>
 <form action="EditProfesor.php" method="POST" name="InicioSession">
     <h1>Editar profesor </h1>
@@ -39,3 +41,8 @@
     <button type="submit">Enviar</button>
 </form>
 <a href="AdminProfesor.php">Volver atrás</a>
+<?php
+    }else{
+        echo"No deberías estar aquí";
+    }}
+?>   

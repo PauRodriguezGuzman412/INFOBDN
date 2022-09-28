@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicar Sessión Alumno</title>
+    <title>Inicar Sessión Profesor</title>
 </head>
 <body>
 
@@ -12,18 +12,16 @@
         session_start();
         include('funciones.php');
 
-        if (isset($_POST['email'])) {
+        if (isset($_POST['DNI'])) {
             
-            $email= $_POST['email'];
+            $DNI= $_POST['DNI'];
             $pass= $_POST['password'];
             
-            $_SESSION['rol']= 'alumno';
+            $_SESSION['rol']= 'profesor';
 
             $connection= connection();
-            $sql= "SELECT email Password FROM alumnos WHERE email= '$email' AND Password= '$pass'";
+            $sql= "SELECT DNI Password FROM profesores WHERE DNI= '$DNI' AND Password= '$pass'";
             $result= mysqli_query($connection, $sql);
-
-            $_SESSION['email']= $email;
 
             ?>
                 <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
@@ -31,9 +29,9 @@
         }
     ?>
 
-    <form action="SignIn.php" method="POST">
+    <form action="SignInProfesor.php" method="POST">
         <h1>Iniciar Sessión</h1>
-        <p>Email: <input type="text" name="email" required></p>    
+        <p>DNI: <input type="text" name="DNI" required></p>    
         <p>Contraseña: <input type="password" name="password" required ></p>
         <button type="submit">Enviar</button>
     </form>

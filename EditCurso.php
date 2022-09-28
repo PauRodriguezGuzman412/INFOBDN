@@ -27,30 +27,30 @@
 
 <form action="EditCurso.php" method="POST" name="InicioSession">
             <?php
-                $connection= connection();
-        
-                //GUARDAR NOMBRE PROFESORES
-                $sql= "SELECT Nom FROM profesores";
-                $result= mysqli_query($connection, $sql);
-                
-                while($profe= mysqli_fetch_row($result)){
-                    $array[] = $profe;    
-                }
-                
-                //GUARDAR DNI PROFESORES
-                $sql2= "SELECT DNI FROM profesores";
-                $result2= mysqli_query($connection, $sql2);
-                
-                while($profe2= mysqli_fetch_row($result2)){
-                    $array2[] = $profe2;    
-                }
-
-                $_SESSION['id']= $_GET['curso'];
-
-                $row= EditarCursos($_GET['curso']);
-
-            ?>
+            if(isset($_SESSION['rol'])){
+                if($_SESSION['rol']=='admin'){
+                    $connection= connection();
             
+                    //GUARDAR NOMBRE PROFESORES
+                    $sql= "SELECT Nom FROM profesores";
+                    $result= mysqli_query($connection, $sql);
+                    
+                    while($profe= mysqli_fetch_row($result)){
+                        $array[] = $profe;    
+                    }
+                    
+                    //GUARDAR DNI PROFESORES
+                    $sql2= "SELECT DNI FROM profesores";
+                    $result2= mysqli_query($connection, $sql2);
+                    
+                    while($profe2= mysqli_fetch_row($result2)){
+                        $array2[] = $profe2;    
+                    }
+
+                    $_SESSION['id']= $_GET['curso'];
+
+                    $row= EditarCursos($_GET['curso']);
+            ?>
     <h1>Edit Curso</h1>
     <p>Nombre del curso: <input type="text" name="Nom" required value="<?php echo($row['Nom']); ?>"></p>    
     <p>Descripción: <input type="text" name="Descripcion" required value="<?php echo($row['Descripcion']); ?>"></p>    
@@ -79,3 +79,8 @@
     <button type="submit">Enviar</button>
 </form>
 <a href="AdminCurso.php">Volver atrás</a>
+<?php
+    }else{
+        echo"No deberías estar aquí";
+    }}
+?>   

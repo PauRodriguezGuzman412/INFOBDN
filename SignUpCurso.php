@@ -24,29 +24,33 @@
 ?>
 
 <form action="SignUpCurso.php" method="POST" name="InicioSession">
-            <?php
-                $connection= connection();
-        
-                //GUARDAR NOMBRE PROFESORES
-                $sql= "SELECT Nom FROM profesores";
-                $result= mysqli_query($connection, $sql);
-                
-                while($profe= mysqli_fetch_row($result)){
-                    $array[] = $profe;    
-                }
+    <?php
+        $connection= connection();
+    
+        //GUARDAR NOMBRE PROFESORES
+        $sql= "SELECT Nom FROM profesores";
+        $result= mysqli_query($connection, $sql);
 
-                //print_r($array);
-                
-                //GUARDAR DNI PROFESORES
-                $sql2= "SELECT DNI FROM profesores";
-                $result2= mysqli_query($connection, $sql2);
-                
-                while($profe2= mysqli_fetch_row($result2)){
-                    $array2[] = $profe2;    
-                }
+        while($profe= mysqli_fetch_row($result)){
+            $array[] = $profe;    
+        }
 
-                //print_r($array2);
-            ?>
+        //print_r($array);
+
+        //GUARDAR DNI PROFESORES
+        $sql2= "SELECT DNI FROM profesores";
+        $result2= mysqli_query($connection, $sql2);
+
+        while($profe2= mysqli_fetch_row($result2)){
+            $array2[] = $profe2;    
+        }
+
+        //print_r($array2);
+    ?>
+    <?php
+    if(isset($_SESSION['rol'])){
+        if($_SESSION['rol']=='admin'){
+    ?>
     <h1>Registrar Curso</h1>
     <p>Nombre del curso: <input type="text" name="Nom" required></p>    
     <p>Descripción: <input type="text" name="Descripcion" required></p>    
@@ -71,3 +75,9 @@
 
 </form>
 <a href="index.php">Volver atrás</a>
+<?php
+        }else{
+            echo"No deberías estar aquí";
+        }
+    }
+?>    

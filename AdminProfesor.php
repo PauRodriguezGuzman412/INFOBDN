@@ -12,7 +12,10 @@
     <title>Document</title>
 </head>
 <body>   
-    
+    <?php
+        if(isset($_SESSION['rol'])){
+            if($_SESSION['rol']=='admin'){
+    ?>
     
         <div class="div">
             <img class="logo" src="skeletonoc-h22b8kbm.png" alt="Logo">
@@ -119,5 +122,10 @@
         }
         ?>
         <a href="index.php">Volver atrás</a>
+        <?php
+            }else{
+                echo"No deberías estar aquí";
+            }}
+        ?>   
 </body>
 </html>
