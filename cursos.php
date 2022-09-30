@@ -57,7 +57,7 @@
     
                     <?php
                 }
-
+                echo "<table>";
                 if($_SESSION['rol']=='alumno'){
                     
                     $connection= connection();
@@ -80,7 +80,10 @@
                         
                         
                         <?php
-                        $sql1= "SELECT cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '".$_SESSION['email']."'";
+                        $sql1= "SELECT cursos.*, matriculas.Nota FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '".$_SESSION['email']."'";
+                        $sql2= "SELECT profesores.Nom FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores = profesores.DNI";
+                        $result2= mysqli_query($connection, $sql2);
+                        $row2= mysqli_fetch_assoc($result2);
                         if($result1= mysqli_query($connection, $sql1)){
                             while($row1= $result1->fetch_assoc()){
                                 $llista1[]= $row1;
@@ -89,9 +92,16 @@
                             echo "<br>NO estás inscrito en ningún curso";
                         }else{
                             foreach($llista1 as $clave1 => $valor1){
-                                echo "<a href='cursos.php'>".$valor1['Nom'], $valor1['Data_inici'], $valor1['Data_final']."</a><br>";
+                                echo "<tr>";
+                                echo "<td><a href='cursos.php'>".$valor1['Nom']."</a></td>";
+                                echo "<td><a href='cursos.php'>Duración: ".$valor1['Data_inici']." - ".$valor1['Data_final']."</a></td>";
+                                echo "<td><a href='cursos.php'>Profesor que imparte el curso: ".$row2['Nom']."</a></td>";
+                                echo "<td><a href='cursos.php'>Nota: ".$valor1['Nota']."</a></td>";
+
+                                echo "</tr>";
                             }
                         }
+                    echo "</table>";
                             
                         ?>
                         
