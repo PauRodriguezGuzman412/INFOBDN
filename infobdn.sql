@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-09-2022 a las 08:49:27
+-- Tiempo de generación: 03-10-2022 a las 13:40:50
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -55,6 +55,14 @@ CREATE TABLE `alumnos` (
   `Foto` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `alumnos`
+--
+
+INSERT INTO `alumnos` (`Email`, `DNI`, `Nom`, `Password`, `Cognoms`, `Edat`, `Foto`) VALUES
+('1@gmail.com', '1', '111', 'c4ca4238', '1', 1, 'imgAlumnos/1-original.jpg'),
+('test@gmail.com', '123', 'pau', '202cb962', 'rodriguez', 19, '');
+
 -- --------------------------------------------------------
 
 --
@@ -77,8 +85,8 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`Codi`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data_final`, `Dni_Profesores`, `activo`) VALUES
-(5, 'English', 'Deez nuts', 69, '2022-09-17', '2022-10-02', '1', 1),
-(6, 'Mates', 'Muchos numeross', 69, '2022-09-17', '2022-10-02', '123', 0);
+(0, 'Mates', 'Mates', 69, '2022-09-01', '2022-10-01', '1', 1),
+(1, 'English', 'English', 88, '2022-09-21', '2022-09-29', '12', 1);
 
 -- --------------------------------------------------------
 
@@ -88,8 +96,16 @@ INSERT INTO `cursos` (`Codi`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data
 
 CREATE TABLE `matriculas` (
   `Codi` int(11) NOT NULL,
-  `DNI_Alumnos` varchar(9) NOT NULL
+  `Email_Alumnos` varchar(50) NOT NULL,
+  `Nota` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `matriculas`
+--
+
+INSERT INTO `matriculas` (`Codi`, `Email_Alumnos`, `Nota`) VALUES
+(0, '1@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,22 +128,22 @@ CREATE TABLE `profesores` (
 --
 
 INSERT INTO `profesores` (`DNI`, `Nom`, `Cognoms`, `Password`, `Titol`, `Foto`, `activo`) VALUES
-('1', 'assadaasdsad', 'testfdasdsfasdf', 'fb469d7ef430b0baf0cab6c436e70375', 'test', 'img/1-3-wpa9xvcq.png', 0),
-('12', 'pau', 'apellidos', 'd58e3582afa99040e27b92b13c8f2280', 'sdfsd', 'img/12-original.jpg', 0),
+('1', 'assadaasdsad', 'testfdasdsfasdf', 'fb469d7ef430b0baf0cab6c436e70375', 'test', 'img/1-3-wpa9xvcq.png', 1),
+('12', 'pau', 'apellidos', '7e5bf5436ee5318727c8c7b5ace219a1', 'sdfsd', 'img/12-original.jpg', 1),
+('121212', '1', '1', 'c4ca4238a0b923820dcc509a6f75849b', '1', 'img/121212-original.jpg', 1),
 ('123', 'holi', 'holo', '202cb962ac59075b964b07152d234b70', '69', 'img/123-original.jpg', 1),
-('22', 'aAAAAAAAAAAA', 'oOOOOOOOOOOOOOOOOOOOO', '098f6bcd4621d373cade4e832627b4f6', 'test', 'img/22-original.jpg\r\n', 0),
-('b', 'b', 'b', '92eb5ffee6ae2fec3ad71c777531578f', 'b', 'img/b-original.jpg', 0),
-('test', 'test', 'test', '28b662d883b6d76fd96e4ddc5e9ba780', 'test', 'img/test-3-wpa9xvcq.png', 1);
+('22', 'aAAAAAAAAAAA', 'oOOOOOOOOOOOOOOOOOOOO', '098f6bcd4621d373cade4e832627b4f6', 'test', 'img/22-original.jpg\r\n', 1),
+('45', '45', '45', '6c8349cc7260ae62e3b1396831a8398f', '45', 'img/45-original.jpg', 1),
+('49988375R', 'eee', 'ee', 'd2f2297d6e829cd3493aa7de4416a18f', 'eee', 'img/49988375R-3-wpa9xvcq.png', 1),
+('90', '90', '90', '8613985ec49eb8f757ae6439e879bb2a', '', 'img/90-skeletonoc-h22b8kbm.png', 1),
+('b', 'b', 'b', '92eb5ffee6ae2fec3ad71c777531578f', 'b', 'img/b-original.jpg', 1),
+('ffff', 'ffff', 'fff', '343d9040a671c45832ee5381860e2996', 'ffff', 'img/ffff-3-wpa9xvcq.png', 1),
+('test', 'test', 'test', '28b662d883b6d76fd96e4ddc5e9ba780', 'test', 'img/test-3-wpa9xvcq.png', 1),
+('test2', 'test2', 'test2', 'ad0234829205b9033196ba818f7a872b', 'test2', '', 1);
 
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `administrador`
---
-ALTER TABLE `administrador`
-  ADD PRIMARY KEY (`DNI`);
 
 --
 -- Indices de la tabla `alumnos`
@@ -140,30 +156,20 @@ ALTER TABLE `alumnos`
 --
 ALTER TABLE `cursos`
   ADD PRIMARY KEY (`Codi`),
-  ADD KEY `Cursos-Alumnos` (`Dni_Profesores`);
+  ADD KEY `Dni_Profesores` (`Dni_Profesores`);
 
 --
 -- Indices de la tabla `matriculas`
 --
 ALTER TABLE `matriculas`
-  ADD PRIMARY KEY (`Codi`,`DNI_Alumnos`),
-  ADD KEY `DNI_Alumnos` (`DNI_Alumnos`);
+  ADD PRIMARY KEY (`Codi`,`Email_Alumnos`),
+  ADD KEY `Email_Alumnos` (`Email_Alumnos`);
 
 --
 -- Indices de la tabla `profesores`
 --
 ALTER TABLE `profesores`
   ADD PRIMARY KEY (`DNI`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `cursos`
---
-ALTER TABLE `cursos`
-  MODIFY `Codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -173,14 +179,14 @@ ALTER TABLE `cursos`
 -- Filtros para la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  ADD CONSTRAINT `Cursos-Alumnos` FOREIGN KEY (`Dni_Profesores`) REFERENCES `profesores` (`DNI`);
+  ADD CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`Dni_Profesores`) REFERENCES `profesores` (`DNI`);
 
 --
 -- Filtros para la tabla `matriculas`
 --
 ALTER TABLE `matriculas`
-  ADD CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`DNI_Alumnos`) REFERENCES `alumnos` (`DNI`),
-  ADD CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`Codi`) REFERENCES `cursos` (`Codi`);
+  ADD CONSTRAINT `matriculas_ibfk_1` FOREIGN KEY (`Codi`) REFERENCES `cursos` (`Codi`),
+  ADD CONSTRAINT `matriculas_ibfk_2` FOREIGN KEY (`Email_Alumnos`) REFERENCES `alumnos` (`Email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
