@@ -96,16 +96,49 @@
                         ?>
                         
                     </div>
-                    
-                        <a href="cursos.php">Eres un alumno</a>
                     <?php
                 }
 
                 if($_SESSION['rol']=='profesor'){
+                    
+                    $connection= connection();
+                    $sql= "SELECT * FROM cursos";
+                    if($result= mysqli_query($connection, $sql)){
+                        while($row= $result->fetch_assoc()){
+                            $llista[]= $row;
+                        }
+                        
+                        foreach($llista as $clave => $valor){
+                            echo "<a href='cursos.php'>".$valor['Nom']."</a><br>";
+                        }
+                    }if(!isset($llista)){
+                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
+                    }
                     ?>
 
-                    <a href="cursos.php">Eres un profesor</a> 
-    
+                        <div>
+                        Usuario "Nombre", <br>Cursos en los que eres profesor:
+                        
+                        
+                        <?php
+                        $sql1= "SELECT cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN Profesores ON cursos.Dni_Profesores=Profesores.DNI WHERE cursos.Dni_profesores LIKE '".$_SESSION['DniProfesor']."'";
+                        if($result1= mysqli_query($connection, $sql1)){
+                            while($row1= $result1->fetch_assoc()){
+                                $llista1[]= $row1;
+                            }
+                        }if(!isset($llista1)){
+                            echo "<br>NO estás inscrito en ningún curso";
+                        }else{
+                            foreach($llista1 as $clave1 => $valor1){
+                                echo "<br><a href='cursos.php'>".$valor1['Nom']."</a> ";
+                                echo "<a href='cursos.php'>".$valor1['Data_inici']."</a> ";
+                                echo "<a href='cursos.php'>".$valor1['Data_final']."</a>";
+                            }
+                        }
+                            
+                        ?>
+                        
+                    </div>    
                     <?php
                 }
             }

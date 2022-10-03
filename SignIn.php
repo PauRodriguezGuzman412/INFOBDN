@@ -20,7 +20,7 @@
             $_SESSION['rol']= 'alumno';
 
             $connection= connection();
-            $sql= "SELECT email Password FROM alumnos WHERE email= '$email' AND Password= '$pass'";
+            $sql= "SELECT email Password FROM alumnos WHERE email= '$email' AND Password= 'md5($pass)'";
             $result= mysqli_query($connection, $sql);
 
             $_SESSION['email']= $email;

@@ -76,7 +76,7 @@
                     ?>
 
                     <div>
-                        Usuario "Nombre", <br>Cursos en los que estás inscrito:
+                        AA
                         
                         
                         <?php
@@ -107,7 +107,6 @@
                         
                     </div>
                     
-                        <a href="cursos.php">Eres un alumno</a>
                     <?php
                 }
 

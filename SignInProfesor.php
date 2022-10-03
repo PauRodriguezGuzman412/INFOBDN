@@ -18,14 +18,19 @@
             $pass= $_POST['password'];
             
             $_SESSION['rol']= 'profesor';
+            $_SESSION['DniProfesor']= $DNI;
 
             $connection= connection();
             $sql= "SELECT DNI Password FROM profesores WHERE DNI= '$DNI' AND Password= '$pass'";
             $result= mysqli_query($connection, $sql);
-
-            ?>
-                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
-            <?php
+            $a= mysqli_fetch_assoc($result);
+            if($a!=null){
+                ?>
+                    <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
+                <?php
+            }else{
+                echo"Error, no hay ningún profesor con esas credenciales";
+            }
         }
     ?>
 
