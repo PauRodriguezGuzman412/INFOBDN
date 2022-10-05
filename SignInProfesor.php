@@ -21,10 +21,15 @@
             $_SESSION['DniProfesor']= $DNI;
 
             $connection= connection();
-            $sql= "SELECT DNI Password FROM profesores WHERE DNI= '$DNI' AND Password= '$pass'";
+            $sql= "SELECT DNI, Password FROM profesores WHERE DNI= '$DNI' AND Password= '".md5($pass)."'";
             $result= mysqli_query($connection, $sql);
-            $a= mysqli_fetch_assoc($result);
-            if($a!=null){
+
+            if(mysqli_num_rows($result)==1){
+                $sql1= "SELECT Nom FROM profesores WHERE DNI= '$DNI'";
+                $nombre= mysqli_query($connection, $sql1);
+                $a= mysqli_fetch_assoc($nombre);
+                $_SESSION['NombreHeader']= $a['Nom']; 
+
                 ?>
                     <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
                 <?php

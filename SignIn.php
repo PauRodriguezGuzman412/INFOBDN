@@ -20,14 +20,31 @@
             $_SESSION['rol']= 'alumno';
 
             $connection= connection();
-            $sql= "SELECT email Password FROM alumnos WHERE email= '$email' AND Password= 'md5($pass)'";
-            $result= mysqli_query($connection, $sql);
 
+            // $nombre= "SELECT Nom FROM alumnos WHERE email= '$email'";
+            // $resultNombre= mysqli_query($connection, $nombre);
+            // $NombreAlumno= $resultNombre.mysqli_fetch_array();
+            // $_SESSION['nombre']= $NombreAlumno;
             $_SESSION['email']= $email;
 
-            ?>
-                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
-            <?php
+            $connection= connection();
+            $sql= "SELECT email,Password FROM alumnos WHERE email= '$email' AND Password= '".md5($pass)."'";
+            $result= mysqli_query($connection, $sql);
+            $a= mysqli_fetch_assoc($result);
+
+            print_r(($sql));
+            if(mysqli_num_rows($result)==1){
+                $sql1= "SELECT Nom FROM alumnos WHERE email= '$email'";
+                $nombre= mysqli_query($connection, $sql1);
+                $a= mysqli_fetch_assoc($nombre);
+                $_SESSION['NombreHeader']= $a['Nom']; 
+
+                ?>
+                    <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
+                <?php
+            }else{
+                echo"Error, no hay ningún alumno con esas credenciales";
+            }
         }
     ?>
 

@@ -26,7 +26,7 @@
                     <?php
                 }else if($_SESSION['rol']=='admin'){
                     ?>
-                        <div class="inicioSession">Hola "nombre", bienvenido</div>
+                        <div class="inicioSession">Eres administrador, bienvenido</div>
                         <div class="a_fil">
                             <a class="general" href="index.php">Inicio</a>
                             <a class="general" href="AdminProfesor.php">Profesores</a><br>
@@ -35,7 +35,7 @@
                     <?php
                 }else{
                     ?>
-                    <div class="inicioSession">Hola "nombre", bienvenido</div>
+                    <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
                     <?php
                 }
                 ?>
@@ -76,7 +76,7 @@
                     ?>
 
                     <div>
-                        Usuario "Nombre", <br>Cursos en los que estás inscrito:
+                        Usuario <?php echo($_SESSION['NombreHeader'])  ?>, <br>Cursos en los que estás inscrito:
                         
                         
                         <?php
@@ -96,9 +96,9 @@
                         ?>
                         
                     </div>
+                    
                     <?php
                 }
-
                 if($_SESSION['rol']=='profesor'){
                     
                     $connection= connection();
@@ -117,7 +117,7 @@
                     ?>
 
                         <div>
-                        Usuario "Nombre", <br>Cursos en los que eres profesor:
+                        Usuario <?php echo($_SESSION['NombreHeader'])  ?>, <br>Cursos en los que eres profesor:
                         
                         
                         <?php

@@ -20,7 +20,7 @@
             $_SESSION['rol']= 'admin';
 
             $connection= connection();
-            $sql= "SELECT DNI Password FROM admin WHERE DNI= '$dni' AND Password= '$pass'";
+            $sql= "SELECT DNI Password FROM administrador WHERE DNI= '$dni' AND Password= '$pass'";
             $result= mysqli_query($connection, $sql);
 
             ?>

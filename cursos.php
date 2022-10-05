@@ -35,7 +35,7 @@
                     <?php
                 }else{
                     ?>
-                    <div class="inicioSession">Hola "nombre", bienvenido</div>
+                    <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
                     <?php
                 }
                 ?>
@@ -57,9 +57,11 @@
     
                     <?php
                 }
-                echo "<table>";
+                echo "<table border>";
                 if($_SESSION['rol']=='alumno'){
-                    
+                    $email= $_SESSION['email'];
+
+
                     $connection= connection();
                     $sql= "SELECT * FROM cursos";
                     if($result= mysqli_query($connection, $sql)){
@@ -76,14 +78,14 @@
                     ?>
 
                     <div>
-                        AA
-                        
-                        
                         <?php
-                        $sql1= "SELECT cursos.*, matriculas.Nota FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '".$_SESSION['email']."'";
-                        $sql2= "SELECT profesores.Nom FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores = profesores.DNI";
-                        $result2= mysqli_query($connection, $sql2);
-                        $row2= mysqli_fetch_assoc($result2);
+                        $sql1= "SELECT cursos.* FROM cursos";
+                        $sql2= "SELECT profesores.Nom, cursos.Codi FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores=profesores.DNI";
+                        if($result2= mysqli_query($connection, $sql2)){
+                            while($row2= $result2->fetch_assoc()){
+                                $llista2[]= $row2;
+                            }
+                        }
                         if($result1= mysqli_query($connection, $sql1)){
                             while($row1= $result1->fetch_assoc()){
                                 $llista1[]= $row1;
@@ -95,9 +97,25 @@
                                 echo "<tr>";
                                 echo "<td><a href='cursos.php'>".$valor1['Nom']."</a></td>";
                                 echo "<td><a href='cursos.php'>Duración: ".$valor1['Data_inici']." - ".$valor1['Data_final']."</a></td>";
-                                echo "<td><a href='cursos.php'>Profesor que imparte el curso: ".$row2['Nom']."</a></td>";
-                                echo "<td><a href='cursos.php'>Nota: ".$valor1['Nota']."</a></td>";
-
+                                foreach($llista2 as $clave2 => $valor2){
+                                    if($valor1['Codi']==$valor2['Codi']){
+                                        echo "<td><a href='cursos.php'>Profesor que imparte el curso: ".$valor2['Nom']."</a></td>";
+                                    }
+                                }
+                                $codigo= $valor1['Codi'];
+                                $sql3= "SELECT cursos.Nom, matriculas.activo FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '$email' AND matriculas.Codi LIKE '$codigo'";
+                                if($result3= mysqli_query($connection, $sql3)){
+                                    while($row3= $result3->fetch_assoc()){
+                                        $llista3[]= $row3;
+                                    }
+                                    
+                                }if(isset($llista3) && isset($llista3[$valor1['Codi']]) && $llista3[$valor1['Codi']]['activo']==1){
+                                    $id= 'no';
+                                    echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a></td>";
+                                }else{
+                                    $id= 'si';
+                                    echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de alta</a></td>";
+                                }
                                 echo "</tr>";
                             }
                         }
@@ -106,15 +124,41 @@
                         ?>
                         
                     </div>
-                    
                     <?php
                 }
 
                 if($_SESSION['rol']=='profesor'){
+                    $connection= connection();
+                    $sql= "SELECT * FROM cursos WHERE Dni_Profesores LIKE '".$_SESSION['DniProfesor']."'";
+                    if($result= mysqli_query($connection, $sql)){
+                        while($row= $result->fetch_assoc()){
+                            $llista[]= $row;
+                        }
+                        echo "<table border>";
+                        echo "<tr>";
+                        echo "<td>Nombre del curso</td>";
+                        echo "<td>Descripcion</td>";
+                        echo "<td>Horas</td>";
+                        echo "<td>Data inici</td>";
+                        echo "<td>Data final</td>";
+                        echo "<td>Ver detalles</td>";
+                        echo "</tr>";
+                        foreach($llista as $clave => $valor){
+                            echo "<tr>";
+                            echo "<td>".$valor['Nom']."</td>";
+                            echo "<td>".$valor['Descripcion']."</td>";
+                            echo "<td>".$valor['Hores']."</td>";
+                            echo "<td>".$valor['Data_inici']."</td>";
+                            echo "<td>".$valor['Data_final']."</td>";
+                            echo "<td><a href='Nota.php?id=".$valor['Codi']."'>Detalles</a></td>";
+                            echo "</tr>"; 
+                        }
+                        echo "</table>";
+                    }if(!isset($llista)){
+                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
+                    }
                     ?>
 
-                    <a href="cursos.php">Eres un profesor</a> 
-    
                     <?php
                 }
             }
