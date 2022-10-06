@@ -46,26 +46,12 @@
             
         <?php
             if(isset($_SESSION['rol'])){
-                if($_SESSION['rol']=='admin'){
-                    ?>
-                    
-                    <div class="a1">
-                        
-                        <a class="admin" href="AdminProfesor.php">Ver listado de profesores</a>
-                        <a class="admin" href="AdminCurso.php">Ver listado de cursos</a>
-
-                    </div>
-                    
-    
-                    <?php
-                }
                 echo "<table border>";
                 if($_SESSION['rol']=='alumno'){
                     $email= $_SESSION['email'];
 
-
                     $connection= connection();
-                    $sql= "SELECT * FROM cursos";
+                    $sql= "SELECT cursos.* FROM cursos WHERE cursos.Codi NOT IN (SELECT Codi FROM matriculas WHERE '".$email."'=matriculas.Email_Alumnos)";
                     if($result= mysqli_query($connection, $sql)){
                         while($row= $result->fetch_assoc()){
                             $llista[]= $row;
@@ -81,8 +67,8 @@
 
                     <div>
                         <?php
-                        $sql1= "SELECT cursos.* FROM cursos";
-                        $sql2= "SELECT profesores.Nom, cursos.Codi FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores=profesores.DNI";
+                        $sql1= "SELECT cursos.* FROM cursos WHERE cursos.Codi NOT IN (SELECT Codi FROM matriculas WHERE '".$email."'=matriculas.Email_Alumnos)";
+                        $sql2= "SELECT profesores.Nom, cursos.Codi FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores=profesores.DNI ";
                         if($result2= mysqli_query($connection, $sql2)){
                             while($row2= $result2->fetch_assoc()){
                                 $llista2[]= $row2;
@@ -126,41 +112,6 @@
                         ?>
                         
                     </div>
-                    <?php
-                }
-
-                if($_SESSION['rol']=='profesor'){
-                    $connection= connection();
-                    $sql= "SELECT * FROM cursos WHERE Dni_Profesores LIKE '".$_SESSION['DniProfesor']."'";
-                    if($result= mysqli_query($connection, $sql)){
-                        while($row= $result->fetch_assoc()){
-                            $llista[]= $row;
-                        }
-                        echo "<table border>";
-                        echo "<tr>";
-                        echo "<td>Nombre del curso</td>";
-                        echo "<td>Descripcion</td>";
-                        echo "<td>Horas</td>";
-                        echo "<td>Data inici</td>";
-                        echo "<td>Data final</td>";
-                        echo "<td>Ver detalles</td>";
-                        echo "</tr>";
-                        foreach($llista as $clave => $valor){
-                            echo "<tr>";
-                            echo "<td>".$valor['Nom']."</td>";
-                            echo "<td>".$valor['Descripcion']."</td>";
-                            echo "<td>".$valor['Hores']."</td>";
-                            echo "<td>".$valor['Data_inici']."</td>";
-                            echo "<td>".$valor['Data_final']."</td>";
-                            echo "<td><a href='Nota.php?id=".$valor['Codi']."'>Detalles</a></td>";
-                            echo "</tr>"; 
-                        }
-                        echo "</table>";
-                    }if(!isset($llista)){
-                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
-                    }
-                    ?>
-
                     <?php
                 }
             }

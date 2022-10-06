@@ -36,6 +36,8 @@
                 }else{
                     ?>
                     <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
+                    <a href="index.php" class="general">Inicio</a>
+                    <a href="cursos.php" class="general">Cursos</a>
                     <?php
                 }
                 ?>
@@ -100,46 +102,55 @@
                     <?php
                 }
                 if($_SESSION['rol']=='profesor'){
-                    
+                    echo "<div class='profetotal'>";
                     $connection= connection();
                     $sql= "SELECT * FROM cursos";
                     if($result= mysqli_query($connection, $sql)){
                         while($row= $result->fetch_assoc()){
                             $llista[]= $row;
                         }
-                        
+                        echo "<div class='CursosTotal'>";
                         foreach($llista as $clave => $valor){
-                            echo "<a href='cursos.php'>".$valor['Nom']."</a><br>";
+                            echo "<div class='CursosTotal2'>";
+                            echo "<a class='cursosespecificos' href='Nota.php?id=".$valor['Codi']."'>".$valor['Nom']."</a>";
+                            echo "</div>";
                         }
+                        echo "</div>";
                     }if(!isset($llista)){
                         echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
                     }
                     ?>
 
-                        <div>
-                        Usuario <?php echo($_SESSION['NombreHeader'])  ?>, <br>Cursos en los que eres profesor:
-                        
-                        
-                        <?php
-                        $sql1= "SELECT cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN Profesores ON cursos.Dni_Profesores=Profesores.DNI WHERE cursos.Dni_profesores LIKE '".$_SESSION['DniProfesor']."'";
-                        if($result1= mysqli_query($connection, $sql1)){
-                            while($row1= $result1->fetch_assoc()){
-                                $llista1[]= $row1;
-                            }
-                        }if(!isset($llista1)){
-                            echo "<br>NO estás inscrito en ningún curso";
-                        }else{
-                            foreach($llista1 as $clave1 => $valor1){
-                                echo "<br><a href='cursos.php'>".$valor1['Nom']."</a> ";
-                                echo "<a href='cursos.php'>".$valor1['Data_inici']."</a> ";
-                                echo "<a href='cursos.php'>".$valor1['Data_final']."</a>";
-                            }
-                        }
+                        <div class='cursosProfe'>
+                            <p class="texto">Usuario <?php echo($_SESSION['NombreHeader']) ?>, <br>Cursos en los que eres profesor:<br></p>
                             
-                        ?>
+                            
+                            <?php
+                            $sql1= "SELECT cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN Profesores ON cursos.Dni_Profesores=Profesores.DNI WHERE cursos.Dni_profesores LIKE '".$_SESSION['DniProfesor']."'";
+                            if($result1= mysqli_query($connection, $sql1)){
+                                while($row1= $result1->fetch_assoc()){
+                                    $llista1[]= $row1;
+                                }
+                            }if(!isset($llista1)){
+                                echo "<br>NO estás inscrito en ningún curso";
+                            }else{
+                                echo "<br>";
+                                echo "<table class='tabla'>";
+                                foreach($llista1 as $clave1 => $valor1){
+                                    echo "<tr class='tabla'>";
+                                    foreach($valor1 as $clave2 => $valor2){
+                                        echo "<td class='tabla'>".$valor2."</td>";
+                                    }
+                                    echo "</tr>";
+                                }
+                                echo "</table>";
+                            }
+                                
+                            ?>
                         
-                    </div>    
+                        </div> 
                     <?php
+                        echo "</div>";
                 }
             }
         ?>

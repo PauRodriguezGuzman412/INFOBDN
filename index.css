@@ -56,3 +56,54 @@ div.a1{
     width:50%;
     margin: 0px auto;
 }
+
+.profetotal{
+    display: flex;
+}
+
+.cursosProfe{
+    background-color: white;
+    border: 1px black solid;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    border-radius: 50px;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    position: static;
+    font-size: x-large;
+}
+
+.CursosTotal2{
+    background-color: white;
+    border: 1px black solid;
+    padding-left: 50px;
+    padding-top: 30px;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    margin-bottom: 50px;
+    border-radius: 5px;
+    font-size: large;
+    text-align: center;
+}
+
+a.cursosespecificos{
+    text-decoration: none;
+    color: black;
+    background-color: white;
+}
+
+.CursosTotal{
+    margin-left: 3%;
+}
+
+.texto{
+    background-color: white;
+    text-align: center;
+}
+
+.tabla{
+    background-color: white;
+}
