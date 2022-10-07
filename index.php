@@ -17,12 +17,15 @@
                 <img src="skeletonoc-h22b8kbm.png" alt="Logo">
                 <?php
                 if(!isset($_SESSION['rol'])){
-                    ?>
-                        <a href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
-                        <a href="SignIn.php">Inicar Sessión</a><br>
-                        <a href="SignUp.php">Registrarse</a><br>
+                    ?>  <div class="headerAll">
+                            <a class="header" href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
+                            <a class="header2" href="SignIn.php">Inicar Sessión</a><br>
+                            <a href="SignInProfesor.php">Inicar Sessión Como profesor</a><br>
+                        
+                            <a class="header2" href="SignUp.php">Registrarse</a><br>
 
-                        <div class="">No has iniciado sessión</div>
+                            <div class="header3">No has iniciado sessión</div>
+                        </div>
                     <?php
                 }else if($_SESSION['rol']=='admin'){
                     ?>
@@ -31,13 +34,21 @@
                             <a class="general" href="index.php">Inicio</a>
                             <a class="general" href="AdminProfesor.php">Profesores</a><br>
                             <a class="general" href="AdminCurso.php">Cursos</a>
+                            <li><a href="SignOut.php" class="general">Salir</a></li>
+
                         </div>
                     <?php
                 }else{
                     ?>
                     <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
-                    <a href="index.php" class="general">Inicio</a>
-                    <a href="cursos.php" class="general">Cursos</a>
+                    <nav>
+                        <ul class="generalAll">
+                            <li><a href="index.php" class="general">Inicio</a></li>
+                            <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
+                            <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
+                            <li><a href="SignOut.php" class="general">Salir</a></li>
+                        </ul>
+                    </nav>
                     <?php
                 }
                 ?>
@@ -61,24 +72,27 @@
                 }
 
                 if($_SESSION['rol']=='alumno'){
-                    
+                    echo "<div class='profetotal'>";
                     $connection= connection();
                     $sql= "SELECT * FROM cursos";
                     if($result= mysqli_query($connection, $sql)){
                         while($row= $result->fetch_assoc()){
                             $llista[]= $row;
                         }
-
+                        echo "<div class='CursosTotal'>";
                         foreach($llista as $clave => $valor){
-                            echo "<a href='cursos.php'>".$valor['Nom']."</a><br>";
+                            echo "<div class='CursosTotal2'>";
+                            echo $valor['Nom']."<br>";
+                            echo "</div>";
                         }
+                        echo "</div>";
                     }if(!isset($llista)){
                         echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
                     }
                     ?>
 
-                    <div>
-                        Usuario <?php echo($_SESSION['NombreHeader'])  ?>, <br>Cursos en los que estás inscrito:
+                    <div class='cursosProfe'>
+                        <p class="texto">Usuario <?php echo($_SESSION['NombreHeader'])  ?>, <br>Cursos en los que estás inscrito:</p>
                         
                         
                         <?php
@@ -90,11 +104,16 @@
                         }if(!isset($llista1)){
                             echo "<br>NO estás inscrito en ningún curso";
                         }else{
+                            echo "<br>";
+                            echo "<table class='tabla'>";
                             foreach($llista1 as $clave1 => $valor1){
-                                echo "<a href='cursos.php'>".$valor1['Nom'], $valor1['Data_inici'], $valor1['Data_final']."</a><br>";
+                                echo "<tr class='tabla'>";
+                                echo "<td class='tabla'>".$valor1['Nom'], $valor1['Data_inici'], $valor1['Data_final']."<br></td>";
+                                echo "</tr>";
                             }
+                            echo "</table>";
                         }
-                            
+                        echo "</div>";
                         ?>
                         
                     </div>

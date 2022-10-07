@@ -45,28 +45,21 @@
         
         if($_GET['id']=='si'){
             $connection= connection();
-            $sql= "SELECT activo FROM matriculas WHERE Codi='".$_GET['valor']."' AND Email_ALumnos='".$_GET['email']."'";
-            $result= mysqli_query($connection, $sql);
-            $row= mysqli_fetch_assoc($result);
-
-            if(mysqli_num_rows($result)==0){
-                $sql2= "INSERT INTO matriculas(Codi, Email_Alumnos) VALUES ('".$_GET['valor']."','".$_GET['email']."')";
-                $result2= mysqli_query($connection, $sql2);
-            }else{
-                $sql2= "UPDATE matriculas set activo=1 where Codi='".$_GET['valor']."' AND Email_Alumnos='".$_GET['email']."'";
-                $result2= mysqli_query($connection, $sql2);
-            }
+            $sql2= "INSERT INTO matriculas(Codi, Email_Alumnos) VALUES ('".$_GET['valor']."','".$_GET['email']."')";
+            $result2= mysqli_query($connection, $sql2);
 
             ?>
-                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=cursos.php">
+                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=MisCursos.php">
             <?php
         }else{
             $connection= connection();
-            $sql= "UPDATE matriculas set activo=0 where Codi='".$_GET['valor']."' AND Email_Alumnos='".$_GET['email']."'";
+            $sql= "DELETE FROM matriculas WHERE matriculas.Codi='".$_GET['valor']."' AND matriculas.Email_Alumnos='".$_GET['email']."'";
             $result= mysqli_query($connection, $sql);
 
+            // $sql= "SELECT cursos.";
+
             ?>
-                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=cursos.php">
+                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=MisCursos.php">
             <?php
         }
 

@@ -31,6 +31,7 @@
                             <a class="general" href="index.php">Inicio</a>
                             <a class="general" href="AdminProfesor.php">Profesores</a><br>
                             <a class="general" href="AdminCurso.php">Cursos</a>
+                            <li><a href="SignOut.php" class="general">Salir</a></li>
                         </div>
                     <?php
                 }else{
@@ -46,24 +47,31 @@
                 if($_SESSION['rol']=='profesor'){
                     $connection= connection();
                     
-                    $sql1= "SELECT Alumnos.Nom,Alumnos.Email,matriculas.Nota,matriculas.Codi FROM Alumnos INNER JOIN matriculas ON Alumnos.Email=matriculas.Email_Alumnos";
-                    $result1= mysqli_query($connection, $sql1);
-                    $var= mysqli_fetch_assoc($result1);
+                    $sql= "SELECT Alumnos.Nom,Alumnos.Email,matriculas.Nota,matriculas.Codi FROM Alumnos INNER JOIN matriculas ON Alumnos.Email=matriculas.Email_Alumnos";
+                    $result= mysqli_query($connection, $sql);
+                    // $var= mysqli_fetch_assoc($result);
 
-                    $sql= "SELECT alumnos.Nom,matriculas.Codi FROM alumnos INNER JOIN matriculas ON alumnos.Email = matriculas.Email_Alumnos";
-                    if($result= mysqli_query($connection, $sql1)){
-                        echo "<table border>";
-                        echo "<tr>";
-                        echo "<td>Alumnos</td>";
-                        echo "<td>Nota</td>";
-                        echo "<td>Poner nota</td>";
-                        echo "</tr>";
-
-                        echo "<tr>";
-                        echo "<td>".$var['Nom']."</td>";
-                        echo "<td>".$var['Nota']."</td>";
-                        echo "<td><a href='PonerNota.php?Email=".$var['Email']."&id=".$var['Codi']."'>Poner Nota</a></td>";
-                        echo "</tr>";
+                    if($result= mysqli_query($connection, $sql)){
+                        while($row= $result->fetch_assoc()){
+                            $llista[]= $row;
+                        }
+                    }
+                    echo "<table border>";
+                    echo "<tr>";
+                    echo "<td>Alumnos</td>";
+                    echo "<td>Nota</td>";
+                    echo "<td>Poner nota</td>";
+                    echo "</tr>";
+                    foreach($llista as $clave1 => $valor1){
+                        if($result= mysqli_query($connection, $sql)){
+    
+    
+                            echo "<tr>";
+                            echo "<td>".$valor1['Nom']."</td>";
+                            echo "<td>".$valor1['Nota']."</td>";
+                            echo "<td><a href='PonerNota.php?Email=".$valor1['Email']."&id=".$valor1['Codi']."'>Poner Nota</a></td>";
+                            echo "</tr>";
+                        }
                     }
                     echo "</table>";
             }

@@ -20,6 +20,7 @@
                     ?>
                         <a href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
                         <a href="SignIn.php">Inicar Sessión</a><br>
+                        <a href="SignInProfesor.php">Inicar Sessión Como profesor</a><br>
                         <a href="SignUp.php">Registrarse</a><br>
 
                         <div class="">No has iniciado sessión</div>
@@ -31,6 +32,7 @@
                             <a class="general" href="index.php">Inicio</a>
                             <a class="general" href="AdminProfesor.php">Profesores</a><br>
                             <a class="general" href="AdminCurso.php">Cursos</a>
+                            <li><a href="SignOut.php" class="general">Salir</a></li>
                         </div>
                     <?php
                 }else{
@@ -105,12 +107,12 @@
                                     }
                                 }
                                 $codigo= $valor1['Codi'];
-                                $sql3= "SELECT cursos.Nom, matriculas.activo FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '$email' AND matriculas.Codi LIKE '$codigo'";
+                                $sql3= "SELECT matriculas.activo FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '$email' AND matriculas.Codi LIKE '$codigo'";
                                 if($result3= mysqli_query($connection, $sql3)){
                                     while($row3= $result3->fetch_assoc()){
                                         $llista3[]= $row3;
                                     }
-                                    
+                                    // print_r();
                                 }if(isset($llista3) && isset($llista3[$valor1['Codi']]) && $llista3[$valor1['Codi']]['activo']==1){
                                     $id= 'no';
                                     echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a></td>";

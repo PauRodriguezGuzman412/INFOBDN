@@ -31,13 +31,20 @@
                             <a class="general" href="index.php">Inicio</a>
                             <a class="general" href="AdminProfesor.php">Profesores</a><br>
                             <a class="general" href="AdminCurso.php">Cursos</a>
+                            <li><a href="SignOut.php" class="general">Salir</a></li>                           
                         </div>
                     <?php
                 }else{
                     ?>
                     <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
-                    <a href="index.php" class="general">Inicio</a>
-                    <a href="cursos.php" class="general">Cursos</a>
+                    <nav>
+                        <ul class="generalAll">
+                            <li><a href="index.php" class="general">Inicio</a></li>
+                            <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
+                            <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
+                            <li><a href="SignOut.php" class="general">Salir</a></li>
+                        </ul>
+                    </nav>
                     <?php
                 }
                 ?>
@@ -67,7 +74,7 @@
 
                     <div>
                         <?php
-                        $sql1= "SELECT cursos.* FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi";
+                        $sql1= "SELECT cursos.*, matriculas.Nota FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi";
                         $sql2= "SELECT profesores.Nom, cursos.Codi FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores=profesores.DNI ";
                         if($result2= mysqli_query($connection, $sql2)){
                             while($row2= $result2->fetch_assoc()){
@@ -85,26 +92,17 @@
                                 echo "<tr>";
                                 echo "<td><a href='cursos.php'>".$valor1['Nom']."</a></td>";
                                 echo "<td><a href='cursos.php'>Duración: ".$valor1['Data_inici']." - ".$valor1['Data_final']."</a></td>";
+                                echo "<td><a href='cursos.php'>Nota: ".$valor1['Nota']."</a></td>";
                                 foreach($llista2 as $clave2 => $valor2){
                                     if($valor1['Codi']==$valor2['Codi']){
                                         echo "<td><a href='cursos.php'>Profesor que imparte el curso: ".$valor2['Nom']."</a></td>";
                                     }
                                 }
-                                $codigo= $valor1['Codi'];
-                                $sql3= "SELECT cursos.Nom, matriculas.activo FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '$email' AND matriculas.Codi LIKE '$codigo'";
-                                if($result3= mysqli_query($connection, $sql3)){
-                                    while($row3= $result3->fetch_assoc()){
-                                        $llista3[]= $row3;
-                                    }
-                                    
-                                }if(isset($llista3) && isset($llista3[$valor1['Codi']]) && $llista3[$valor1['Codi']]['activo']==1){
                                     $id= 'no';
                                     echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a></td>";
-                                }else{
-                                    $id= 'si';
-                                    echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de alta</a></td>";
-                                }
+                              
                                 echo "</tr>";
+                            
                             }
                         }
                     echo "</table>";
