@@ -3,25 +3,27 @@
     include('funciones.php');
 
     if (!empty($_POST['Nom'])) {
-        $name= $_POST['Nom'];
-        $desc= $_POST['Descripcion'];
-        $horas= $_POST['Hores'];
-        $inici= $_POST['Data_inici'];
-        $final= $_POST['Data_final'];
-        $prof= $_POST['Dni_Profesores'];
+        if($_POST['Data_inici']<$_POST['Data_final']){
+            $name= $_POST['Nom'];
+            $desc= $_POST['Descripcion'];
+            $horas= $_POST['Hores'];
+            $inici= $_POST['Data_inici'];
+            $final= $_POST['Data_final'];
+            $prof= $_POST['Dni_Profesores'];
 
-        
-        $_SESSION['rol']= 'admin';
+            
+            $_SESSION['rol']= 'admin';
 
+            $connection= connection();
+            $sql= "UPDATE cursos SET Nom= '$name', Descripcion= '$desc', Hores='$horas', Data_inici='$inici', Data_final='$final', Dni_Profesores='$prof' WHERE Codi=".$_SESSION['id']."";
+            $result= mysqli_query($connection, $sql);
 
-        $connection= connection();
-        $sql= "UPDATE cursos SET Nom= '$name', Descripcion= '$desc', Hores='$horas', Data_inici='$inici', Data_final='$final', Dni_Profesores='$prof' WHERE Codi=".$_SESSION['id']."";
-
-        $result= mysqli_query($connection, $sql);
-
-        ?>
-            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminCurso.php">
-        <?php
+            ?>
+                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminCurso.php">
+            <?php
+        }else{
+            echo "La fecha de inicio es mayor que la fecha final";
+        }
     }
 ?>
 

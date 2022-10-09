@@ -38,14 +38,39 @@
 
                         </div>
                     <?php
-                }else{
+                }else if($_SESSION['rol']=='alumno'){
+                    ?>
+                    <!-- MENU DESPLEBAGLE -->
+                    <!-- <select class="generalAll" name="Menu">
+                        <option>Menu</option>
+                        <option><a for="Menu" id="Menu" value="Inicio" href="index.php">Inicio</a></option>
+                        <option><a for="Menu" id="Menu" value="MisCursos" href="MisCursos.php">Mis Cursos</a></option>
+                        <option><a for="Menu" id="Menu" value="CursosDisponibles" href="CursosDisponibles.php">Cursos Disponibles</a></option>
+                    </select>
+                    <li><a href="SignOut.php" class="general">Salir</a></li> -->
+                    <div class="DivMenu">
+                        <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
+                        
+                        <nav>
+                            <ul class="generalAll">
+                                <li><a href="index.php" class="general">Inicio</a></li>
+                                <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
+                                <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <a href="SignOut.php" class="SignOut">Salir</a>
+
+                    <?php
+                }else if($_SESSION['rol']=='profesor'){
                     ?>
                     <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
                     <nav>
                         <ul class="generalAll">
                             <li><a href="index.php" class="general">Inicio</a></li>
-                            <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
-                            <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
+                            <li><a href="cursos.php" class="general">Curso</a></li>
                             <li><a href="SignOut.php" class="general">Salir</a></li>
                         </ul>
                     </nav>
@@ -53,7 +78,7 @@
                 }
                 ?>
             </div>
-        </header> 
+        </header>
             
         <?php
             if(isset($_SESSION['rol'])){
@@ -108,7 +133,9 @@
                             echo "<table class='tabla'>";
                             foreach($llista1 as $clave1 => $valor1){
                                 echo "<tr class='tabla'>";
-                                echo "<td class='tabla'>".$valor1['Nom'], $valor1['Data_inici'], $valor1['Data_final']."<br></td>";
+                                echo "<td class='tabla'>".$valor1['Nom']." </td>";
+                                echo "<td class='tabla'>".$valor1['Data_inici']." </td>";
+                                echo "<td class='tabla'>".$valor1['Data_final']."<br></td>";
                                 echo "</tr>";
                             }
                             echo "</table>";
@@ -131,7 +158,7 @@
                         echo "<div class='CursosTotal'>";
                         foreach($llista as $clave => $valor){
                             echo "<div class='CursosTotal2'>";
-                            echo "<a class='cursosespecificos' href='Nota.php?id=".$valor['Codi']."'>".$valor['Nom']."</a>";
+                            echo $valor['Nom'];
                             echo "</div>";
                         }
                         echo "</div>";
@@ -145,7 +172,7 @@
                             
                             
                             <?php
-                            $sql1= "SELECT cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN Profesores ON cursos.Dni_Profesores=Profesores.DNI WHERE cursos.Dni_profesores LIKE '".$_SESSION['DniProfesor']."'";
+                            $sql1= "SELECT cursos.Codi, cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN Profesores ON cursos.Dni_Profesores=Profesores.DNI WHERE cursos.Dni_profesores LIKE '".$_SESSION['DniProfesor']."'";
                             if($result1= mysqli_query($connection, $sql1)){
                                 while($row1= $result1->fetch_assoc()){
                                     $llista1[]= $row1;
@@ -160,6 +187,7 @@
                                     foreach($valor1 as $clave2 => $valor2){
                                         echo "<td class='tabla'>".$valor2."</td>";
                                     }
+                                    echo "";echo "<td><a class='blanco' href='Nota.php?id=".$valor1['Codi']."'>Detalles</a></td>";
                                     echo "</tr>";
                                 }
                                 echo "</table>";

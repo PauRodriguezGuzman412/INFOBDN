@@ -186,3 +186,27 @@ a.cursosespecificos{
     position: relative;
     right: 25px;
 }
+
+.divGeneral{
+    font-size: large;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    margin-bottom: 3%;
+}
+
+.name{
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 50%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-left: 10%;
+}
+
+.details{
+    text-align: center;
+}

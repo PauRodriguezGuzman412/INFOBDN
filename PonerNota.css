@@ -186,3 +186,27 @@ a.cursosespecificos{
     position: relative;
     right: 25px;
 }
+
+body form{
+    text-align: center;
+    margin: 0px auto;
+    font-size: x-large;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formulario{
+    border: 1px solid black;
+    width: 30%;
+    background-color: white;
+}
+
+h1, p, input, button{
+    background-color: white;
+}
+
+button, input{
+    font-size: large;
+}

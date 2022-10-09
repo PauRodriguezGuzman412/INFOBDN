@@ -186,3 +186,11 @@ a.cursosespecificos{
     position: relative;
     right: 25px;
 }
+
+body div.content{
+    text-align: center;
+    margin: 0px auto;
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+}

@@ -3,23 +3,27 @@
     include('funciones.php');
     
     if (!empty($_POST['Nom'])) {
-        $name= $_POST['Nom'];
-        $desc= $_POST['Descripcion'];
-        $horas= $_POST['Hores'];
-        $inici= $_POST['Data_inici'];
-        $final= $_POST['Data_final'];
-        $prof= $_POST['Dni_Profesores'];
-
-        
-        $_SESSION['rol']= 'admin';
-
-        $connection= connection();
-        $sql= "INSERT INTO cursos (Nom,Descripcion,Hores,Data_inici,Data_final,Dni_Profesores) VALUES ('$name', '$desc', '$horas', '$inici', '$final','$prof')";
-        $result= mysqli_query($connection, $sql);
-
-        ?>
-            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
-        <?php
+        if($_POST['Data_inici']<$_POST['Data_final']){
+            $name= $_POST['Nom'];
+            $desc= $_POST['Descripcion'];
+            $horas= $_POST['Hores'];
+            $inici= $_POST['Data_inici'];
+            $final= $_POST['Data_final'];
+            $prof= $_POST['Dni_Profesores'];
+    
+            
+            $_SESSION['rol']= 'admin';
+    
+            $connection= connection();
+            $sql= "INSERT INTO cursos (Nom,Descripcion,Hores,Data_inici,Data_final,Dni_Profesores) VALUES ('$name', '$desc', '$horas', '$inici', '$final','$prof')";
+            $result= mysqli_query($connection, $sql);
+    
+            ?>
+                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminCurso.php">
+            <?php
+        }else{
+            echo "La fecha de inicio es mayor que la fecha final";
+        }
     }
 ?>
 
@@ -74,7 +78,7 @@
     <button type="submit">Enviar</button>
 
 </form>
-<a href="index.php">Volver atrás</a>
+<a href="AdminCurso.php">Volver atrás</a>
 <?php
         }else{
             echo"No deberías estar aquí";

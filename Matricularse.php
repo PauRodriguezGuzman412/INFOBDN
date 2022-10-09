@@ -56,8 +56,6 @@
             $sql= "DELETE FROM matriculas WHERE matriculas.Codi='".$_GET['valor']."' AND matriculas.Email_Alumnos='".$_GET['email']."'";
             $result= mysqli_query($connection, $sql);
 
-            // $sql= "SELECT cursos.";
-
             ?>
                 <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=MisCursos.php">
             <?php

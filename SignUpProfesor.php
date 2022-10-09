@@ -27,7 +27,7 @@
         $result= mysqli_query($connection, $sql);
 
         ?>
-            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
+            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminProfesor.php">
         <?php
     }
     ?>
@@ -45,7 +45,7 @@
         <p>Avatar: <input type="file" name="Foto" accept=".png, .jpg, .jpeg" required></p>
         <button type="submit">Enviar</button>
     </form>
-    <a href="index.php">Volver atrás</a>
+    <a href="AdminProfesor.php">Volver atrás</a>
     <?php
             }else{
                 echo"No deberías estar aquí";
