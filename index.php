@@ -9,6 +9,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="index.css" rel="stylesheet" type="text/css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
         <title>Inicio</title>
     </head>
     <body>
@@ -66,14 +69,18 @@
                     <?php
                 }else if($_SESSION['rol']=='profesor'){
                     ?>
-                    <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
-                    <nav>
-                        <ul class="generalAll">
-                            <li><a href="index.php" class="general">Inicio</a></li>
-                            <li><a href="cursos.php" class="general">Curso</a></li>
-                            <li><a href="SignOut.php" class="general">Salir</a></li>
-                        </ul>
-                    </nav>
+                    <div class="DivMenu">
+                        <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
+                        
+                        <nav>
+                            <ul class="generalAll">
+                                <li><a href="index.php" class="general">Inicio</a></li>
+                                <li><a href="cursos.php" class="general">Curso</a></li>                                
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <a href="SignOut.php" class="SignOut">Salir</a>
                     <?php
                 }
                 ?>
