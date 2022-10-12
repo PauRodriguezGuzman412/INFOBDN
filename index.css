@@ -13,19 +13,21 @@
 
 .header{
     background-color: lightblue;
+    display:flex;
+    align-items: center;
     padding-left: 50px;
+    text-decoration: none;
+    color: black;
+    font-size: large;
 }
 
 .header2{
     background-color: lightblue;
-    display: flex;
-    position: relative;
-    left: 60%;
-}
-
-.header3{
-    background-color: lightblue;
+    display:flex;
+    align-items: center;
     padding-left: 50px;
+    font-weight: bold;
+    font-size: large;
 }
 
 div.div{
@@ -47,16 +49,9 @@ div.div{
     margin: auto;
 }
 
-/* .general{
-    background-color: lightblue;
-    text-decoration: none;
-    font-size: x-large;
-    display: flex;
-    align-items: center;
-}*/
-
 .generalAll{
     display: flex;
+    justify-content: center;
     background-color: lightblue;
 }
 
@@ -69,15 +64,11 @@ div.div{
 }
 
 nav{
-    /* float: right; */
     background-color: lightblue;
-    /* margin-top: 50px; */
-    /* width: 25%; */
 }
 
 nav li{
     display:inline-block;
-    /* width: 30%; */
     padding:5px 10px;
     background-color: lightblue;
     text-align:center;

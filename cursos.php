@@ -43,14 +43,6 @@
                     <?php
                 }else if($_SESSION['rol']=='alumno'){
                     ?>
-                    <!-- MENU DESPLEBAGLE -->
-                    <!-- <select class="generalAll" name="Menu">
-                        <option>Menu</option>
-                        <option><a for="Menu" id="Menu" value="Inicio" href="index.php">Inicio</a></option>
-                        <option><a for="Menu" id="Menu" value="MisCursos" href="MisCursos.php">Mis Cursos</a></option>
-                        <option><a for="Menu" id="Menu" value="CursosDisponibles" href="CursosDisponibles.php">Cursos Disponibles</a></option>
-                    </select>
-                    <li><a href="SignOut.php" class="general">Salir</a></li> -->
                     <div class="DivMenu">
                         <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
                         
@@ -69,14 +61,18 @@
                     <?php
                 }else if($_SESSION['rol']=='profesor'){
                     ?>
-                    <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
-                    <nav>
-                        <ul class="generalAll">
-                            <li><a href="index.php" class="general">Inicio</a></li>
-                            <li><a href="cursos.php" class="general">Curso</a></li>
-                            <li><a href="SignOut.php" class="general">Salir</a></li>
-                        </ul>
-                    </nav>
+                    <div class="DivMenu">
+                        <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
+                            
+                        <nav>
+                            <ul class="generalAll">
+                                <li><a href="index.php" class="general">Inicio</a></li>
+                                <li><a href="cursos.php" class="general">Curso</a></li>                                
+                            </ul>
+                        </nav>
+                    </div>
+                        
+                        <a href="SignOut.php" class="SignOut">Salir</a>
                     <?php
                 }
                 ?>
@@ -175,17 +171,7 @@
                         while($row= $result->fetch_assoc()){
                             $llista[]= $row;
                         }
-                        // echo "<table border>";
-                        // echo "<tr>";
-                        // echo "<td>Nombre del curso</td>";
-                        // echo "<td>Descripcion</td>";
-                        // echo "<td>Horas</td>";
-                        // echo "<td>Data inici</td>";
-                        // echo "<td>Data final</td>";
-                        // echo "<td>Ver detalles</td>";
-                        // echo "</tr>";
                         foreach($llista as $clave => $valor){
-                            // echo "<tr>";
                             echo "<div class='divGeneral'>";
                                 echo "<div class='name'>".$valor['Nom']."</div>";
                                 echo "<div class='details'>";
@@ -196,9 +182,7 @@
                                 echo "</div>";
                                 echo "<div class='link'><a href='Nota.php?id=".$valor['Codi']."'>Detalles</a></div>";
                             echo "</div>";
-                            // echo "</tr>"; 
                         }
-                        // echo "</table>";
                     }if(!isset($llista)){
                         echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
                     }

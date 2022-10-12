@@ -8,71 +8,83 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="index.css" rel="stylesheet" type="text/css">
+        <link href="MisCursos.css" rel="stylesheet" type="text/css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
         <title>Inicio</title>
     </head>
     <body>
-        <header> 
+    <header> 
             <div class="div">
                 <img src="skeletonoc-h22b8kbm.png" alt="Logo">
                 <?php
                 if(!isset($_SESSION['rol'])){
-                    ?>
-                        <a href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
-                        <a href="SignIn.php">Inicar Sessión</a><br>
-                        <a href="SignUp.php">Registrarse</a><br>
+                    ?>  <div class="headerAll">
+                            <a class="header" href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
+                            <a class="header" href="SignIn.php">Inicar Sessión como alumno</a><br>
+                            <a class="header" href="SignInProfesor.php">Inicar Sessión Como profesor</a><br>
+                        
+                            <a class="header" href="SignUp.php">Registrarse</a><br>
 
-                        <div class="">No has iniciado sessión</div>
+                            <div class="header2">No has iniciado sessión</div>
+                        </div>
                     <?php
                 }else if($_SESSION['rol']=='admin'){
                     ?>
-                        <div class="inicioSession">Hola "nombre", bienvenido</div>
+                        <div class="inicioSession">Eres administrador, bienvenido</div>
                         <div class="a_fil">
                             <a class="general" href="index.php">Inicio</a>
                             <a class="general" href="AdminProfesor.php">Profesores</a><br>
                             <a class="general" href="AdminCurso.php">Cursos</a>
-                            <li><a href="SignOut.php" class="general">Salir</a></li>                           
+                            <li><a href="SignOut.php" class="general">Salir</a></li>
+
                         </div>
                     <?php
-                }else{
+                }else if($_SESSION['rol']=='alumno'){
                     ?>
-                    <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
-                    <nav>
-                        <ul class="generalAll">
-                            <li><a href="index.php" class="general">Inicio</a></li>
-                            <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
-                            <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
-                            <li><a href="SignOut.php" class="general">Salir</a></li>
-                        </ul>
-                    </nav>
+                    <div class="DivMenu">
+                        <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
+                        
+                        <nav>
+                            <ul class="generalAll">
+                                <li><a href="index.php" class="general">Inicio</a></li>
+                                <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
+                                <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <a href="SignOut.php" class="SignOut">Salir</a>
+
+                    <?php
+                }else if($_SESSION['rol']=='profesor'){
+                    ?>
+                    <div class="DivMenu">
+                        <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
+                        
+                        <nav>
+                            <ul class="generalAll">
+                                <li><a href="index.php" class="general">Inicio</a></li>
+                                <li><a href="cursos.php" class="general">Curso</a></li>                                
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <a href="SignOut.php" class="SignOut">Salir</a>
                     <?php
                 }
                 ?>
             </div>
-        </header> 
+        </header>
             
         <?php
             if(isset($_SESSION['rol'])){
-                echo "<table border>";
                 if($_SESSION['rol']=='alumno'){
                     $email= $_SESSION['email'];
 
                     $connection= connection();
-                    // $sql= "SELECT cursos.* FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi ";
-                    // if($result= mysqli_query($connection, $sql)){
-                    //     while($row= $result->fetch_assoc()){
-                    //         $llista[]= $row;
-                    //     }
-
-                    //     foreach($llista as $clave => $valor){
-                    //         echo "<a href='cursos.php'>".$valor['Nom']."</a><br>";
-                    //     }
-                    // }if(!isset($llista)){
-                    //     echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
-                    // }
                     ?>
 
                     <div>
@@ -99,34 +111,31 @@
                                     }
                                 }
                                 
-                                echo "<tr>";
-                                echo "<td><a href='cursos.php'>".$valor1['Nom']."</a></td>";
-                                echo "<td><a href='cursos.php'>Duración: ".$valor1['Data_inici']." - ".$valor1['Data_final']."</a></td>";
-                                echo "<td><a href='cursos.php'>Nota: ".$valor1['Nota']."</a></td>";
-                                foreach($llista2 as $clave2 => $valor2){
-                                    if($valor1['Codi']==$valor2['Codi']){
-                                        echo "<td><a href='cursos.php'>Profesor que imparte el curso: ".$valor2['Nom']."</a></td>";
-                                    }
-                                }
-                                if($llista3[$clave1]['Data_inici']<date("Y-m-d") && $llista3[$clave1]['Data_final']>date("Y-m-d")){
-                                    $id= 'no';
-                                    echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a></td>";
-                                }else if($llista3[$clave1]['Data_final']<date("Y-m-d")){
-                                    echo "<td>El curso ya ha acabado</td>";
-                                }else{
-                                    echo "<td>El curso no ha empezado todavía</td>";
-                                }
-                                
-                                    
-                              
-                                echo "</tr>";
-                            
+                                echo "<div class='divGeneral'>";
+                                    echo "<div class='name'>".$valor1['Nom']."</div>";
+                                    echo "<div class='details'>";
+                                        echo "Duración: ".$valor1['Data_inici']." - ".$valor1['Data_final']."<br>";
+                                        foreach($llista2 as $clave2 => $valor2){
+                                            if($valor1['Codi']==$valor2['Codi']){
+                                                echo "Profesor que imparte el curso: ".$valor2['Nom']."<br>";
+                                            }
+                                        }
+                                        echo "Nota: ".$valor1['Nota']."";
+                                    echo "</div>";
+                                    echo "<div class='link'>";
+                                        if($llista3[$clave1]['Data_inici']<date("Y-m-d") && $llista3[$clave1]['Data_final']>date("Y-m-d")){
+                                            $id= 'no';
+                                            echo "<br><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a>";
+                                        }else if($llista3[$clave1]['Data_final']<date("Y-m-d")){
+                                            echo "El curso ya ha acabado";
+                                        }else{
+                                            echo "El curso no ha empezado todavía";
+                                        }
+                                    echo "</div>";
+                                echo "</div>";
                             }
                         }
-                    echo "</table>";
-                            
                         ?>
-                        
                     </div>
                     <?php
                 }

@@ -22,24 +22,30 @@
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
                             <a class="header" href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
-                            <a class="header2" href="SignIn.php">Inicar Sessión</a><br>
-                            <a href="SignInProfesor.php">Inicar Sessión Como profesor</a><br>
+                            <a class="header" href="SignIn.php">Inicar Sessión como alumno</a><br>
+                            <a class="header" href="SignInProfesor.php">Inicar Sessión Como profesor</a><br>
                         
-                            <a class="header2" href="SignUp.php">Registrarse</a><br>
+                            <a class="header" href="SignUp.php">Registrarse</a><br>
 
-                            <div class="header3">No has iniciado sessión</div>
+                            <div class="header2">No has iniciado sessión</div>
                         </div>
                     <?php
                 }else if($_SESSION['rol']=='admin'){
                     ?>
+                    <div class="DivMenu">
                         <div class="inicioSession">Eres administrador, bienvenido</div>
-                        <div class="a_fil">
-                            <a class="general" href="index.php">Inicio</a>
-                            <a class="general" href="AdminProfesor.php">Profesores</a><br>
-                            <a class="general" href="AdminCurso.php">Cursos</a>
-                            <li><a href="SignOut.php" class="general">Salir</a></li>
-
-                        </div>
+                        
+                        <nav>
+                            <ul class="generalAll">
+                                <li><a href="index.php" class="general">Inicio</a></li>
+                                <li><a href="AdminProfesor.php" class="general">Profesores</a></li>
+                                <li><a href="AdminCurso.php" class="general">Cursos</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <a href="SignOut.php" class="SignOut">Salir</a>
+                        
                     <?php
                 }else if($_SESSION['rol']=='alumno'){
                     ?>
@@ -59,7 +65,6 @@
                                 <li><a href="index.php" class="general">Inicio</a></li>
                                 <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
                                 <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
-                                
                             </ul>
                         </nav>
                     </div>

@@ -21,13 +21,13 @@
                     <?php
                     if(!isset($_SESSION['rol'])){
                         ?>  <div class="headerAll">
-                                <a class="header" href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
-                                <a class="header2" href="SignIn.php">Inicar Sessión</a><br>
-                                <a href="SignInProfesor.php">Inicar Sessión Como profesor</a><br>
-                            
-                                <a class="header2" href="SignUp.php">Registrarse</a><br>
+                            <a class="header" href="SignInAdmin.php">Inicar Sessión como administrador</a><br>
+                            <a class="header" href="SignIn.php">Inicar Sessión como alumno</a><br>
+                            <a class="header" href="SignInProfesor.php">Inicar Sessión Como profesor</a><br>
+                        
+                            <a class="header" href="SignUp.php">Registrarse</a><br>
 
-                                <div class="header3">No has iniciado sessión</div>
+                            <div class="header2">No has iniciado sessión</div>
                             </div>
                         <?php
                     }else if($_SESSION['rol']=='admin'){
@@ -69,14 +69,18 @@
                         <?php
                     }else if($_SESSION['rol']=='profesor'){
                         ?>
-                        <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
-                        <nav>
-                            <ul class="generalAll">
-                                <li><a href="index.php" class="general">Inicio</a></li>
-                                <li><a href="cursos.php" class="general">Curso</a></li>
-                                <li><a href="SignOut.php" class="general">Salir</a></li>
-                            </ul>
-                        </nav>
+                        <div class="DivMenu">
+                            <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
+                            
+                            <nav>
+                                <ul class="generalAll">
+                                    <li><a href="index.php" class="general">Inicio</a></li>
+                                    <li><a href="cursos.php" class="general">Curso</a></li>                                
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                        <a href="SignOut.php" class="SignOut">Salir</a>
                         <?php
                     }
                     ?>

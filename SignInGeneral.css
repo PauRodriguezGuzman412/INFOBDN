@@ -49,9 +49,16 @@ div.div{
     margin: auto;
 }
 
+/* .general{
+    background-color: lightblue;
+    text-decoration: none;
+    font-size: x-large;
+    display: flex;
+    align-items: center;
+}*/
+
 .generalAll{
     display: flex;
-    justify-content: center;
     background-color: lightblue;
 }
 
@@ -64,11 +71,15 @@ div.div{
 }
 
 nav{
+    /* float: right; */
     background-color: lightblue;
+    /* margin-top: 50px; */
+    /* width: 25%; */
 }
 
 nav li{
     display:inline-block;
+    /* width: 30%; */
     padding:5px 10px;
     background-color: lightblue;
     text-align:center;
@@ -179,26 +190,19 @@ a.cursosespecificos{
     right: 25px;
 }
 
-.divGeneral{
-    font-size: large;
+body form{
     text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    margin-bottom: 3%;
+    margin: 0px auto;
+    font-size: x-large;
+    height: 250px;
 }
 
-.name{
+.formulario{
     border: 1px solid black;
+    width: 30%;
     background-color: white;
-    border-radius: 10px;
-    text-align: center;
-    width: 50%;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    margin-left: 10%;
 }
 
-.details{
-    text-align: center;
+h1,p,button,input{
+    background-color: white;
 }
