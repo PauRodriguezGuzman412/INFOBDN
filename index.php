@@ -72,7 +72,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" witdth="100px" height="100px">
+                    <a href="EditarAlumno.php" class="SignOut"><img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" witdth="100px" height="100px"></a>
                     <a href="SignOut.php" class="SignOut">Salir</a>
 
                     <?php

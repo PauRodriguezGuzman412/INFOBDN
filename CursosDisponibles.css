@@ -174,10 +174,14 @@ a.cursosespecificos{
     color: black;
     font-size: x-large;
     font-weight: bold;
-    margin-top: 50px;
     position: relative;
-    right: 25px;
-}
+    right: 25px;   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 100%;
+}   
+
 
 .divGeneral{
     font-size: large;

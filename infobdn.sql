@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2022 a las 10:46:25
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Tiempo de generación: 13-10-2022 a las 20:19:44
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,7 +60,7 @@ CREATE TABLE `alumnos` (
 --
 
 INSERT INTO `alumnos` (`Email`, `DNI`, `Nom`, `Password`, `Cognoms`, `Edat`, `Foto`) VALUES
-('1@gmail.com', '1', 'Juan', 'c4ca4238a0b923820dcc509a6f75849b', '1', 1, 'imgAlumnos/1-original.jpg'),
+('1@gmail.com', '1uwu', 'uwu', 'bb105e0f32041d3aff9768e7b54f7b72', 'Juan', 69, 'imgAlumnos/1-original.jpg'),
 ('test@gmail.com', '123', 'pau', '202cb962', 'rodriguez', 19, '');
 
 -- --------------------------------------------------------
@@ -85,9 +85,9 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`Codi`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data_final`, `Dni_Profesores`, `activo`) VALUES
-(1, 'Mates', 'Numeros', 69, '2022-09-27', '2022-09-29', '1', 1),
+(1, 'Mates', 'Numeros', 69, '2022-10-07', '2022-10-07', '1', 1),
 (2, 'English', 'Loads of words', 69, '2022-10-03', '2022-11-06', '1', 1),
-(3, 'Castellano', 'Palabras en español', 88, '2022-09-21', '2022-09-29', '22', 1),
+(3, 'Castellano', 'Palabras en español', 88, '2022-09-21', '2022-10-14', '22', 1),
 (4, 'Català', 'Paraules en català', 88, '2022-09-21', '2022-09-29', '22', 1);
 
 -- --------------------------------------------------------
@@ -99,19 +99,17 @@ INSERT INTO `cursos` (`Codi`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data
 CREATE TABLE `matriculas` (
   `Codi` int(11) NOT NULL,
   `Email_Alumnos` varchar(50) NOT NULL,
-  `Nota` int(2) DEFAULT NULL,
-  `activo` int(1) NOT NULL DEFAULT 1
+  `Nota` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `matriculas`
 --
 
-INSERT INTO `matriculas` (`Codi`, `Email_Alumnos`, `Nota`, `activo`) VALUES
-(1, '1@gmail.com', 5, 1),
-(2, '1@gmail.com', NULL, 1),
-(3, '1@gmail.com', NULL, 1),
-(4, '1@gmail.com', NULL, 1);
+INSERT INTO `matriculas` (`Codi`, `Email_Alumnos`, `Nota`) VALUES
+(1, '1@gmail.com', 1),
+(1, 'test@gmail.com', 10),
+(4, '1@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -137,7 +135,7 @@ INSERT INTO `profesores` (`DNI`, `Nom`, `Cognoms`, `Password`, `Titol`, `Foto`, 
 ('1', 'assadaasdsad', 'testfdasdsfasdf', 'c4ca4238a0b923820dcc509a6f75849b', 'test', 'img/1-3-wpa9xvcq.png', 1),
 ('12', 'pau', 'apellidos', '7e5bf5436ee5318727c8c7b5ace219a1', 'sdfsd', 'img/12-original.jpg', 1),
 ('121212', '1', '1', 'c4ca4238a0b923820dcc509a6f75849b', '1', 'img/121212-original.jpg', 1),
-('123', 'holi', 'holo', '202cb962ac59075b964b07152d234b70', '69', 'img/123-original.jpg', 1),
+('123', 'holi', 'holo', '202cb962ac59075b964b07152d234b70', '69', 'img/123-original.jpg', 0),
 ('22', 'aAAAAAAAAAAA', 'oOOOOOOOOOOOOOOOOOOOO', '098f6bcd4621d373cade4e832627b4f6', 'test', 'img/22-original.jpg\r\n', 1),
 ('45', '45', '45', '6c8349cc7260ae62e3b1396831a8398f', '45', 'img/45-original.jpg', 1),
 ('49988375R', 'eee', 'ee', 'd2f2297d6e829cd3493aa7de4416a18f', 'eee', 'img/49988375R-3-wpa9xvcq.png', 1),
@@ -145,7 +143,7 @@ INSERT INTO `profesores` (`DNI`, `Nom`, `Cognoms`, `Password`, `Titol`, `Foto`, 
 ('b', 'b', 'b', '92eb5ffee6ae2fec3ad71c777531578f', 'b', 'img/b-original.jpg', 1),
 ('ffff', 'ffff', 'fff', '343d9040a671c45832ee5381860e2996', 'ffff', 'img/ffff-3-wpa9xvcq.png', 1),
 ('test', 'test', 'test', '28b662d883b6d76fd96e4ddc5e9ba780', 'test', 'img/test-3-wpa9xvcq.png', 1),
-('test2', 'test2', 'test2', 'ad0234829205b9033196ba818f7a872b', 'test2', '', 1);
+('test2', 'test2', 'test2', 'ad0234829205b9033196ba818f7a872b', 'test2', '', 0);
 
 --
 -- Índices para tablas volcadas
