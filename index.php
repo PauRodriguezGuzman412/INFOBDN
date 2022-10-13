@@ -17,7 +17,7 @@
     <body>
         <header> 
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="Logo">
+                <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="100px" height="100px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -48,6 +48,10 @@
                         
                     <?php
                 }else if($_SESSION['rol']=='alumno'){
+                    $connection= connection();
+                    $query= "SELECT Foto FROM alumnos WHERE Email LIKE '".$_SESSION['email']."'";
+                    $resultado= mysqli_query($connection, $query);
+                    $final= mysqli_fetch_row($resultado);
                     ?>
                     <!-- MENU DESPLEBAGLE -->
                     <!-- <select class="generalAll" name="Menu">
@@ -68,7 +72,7 @@
                             </ul>
                         </nav>
                     </div>
-                    
+                    <img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" witdth="100px" height="100px">
                     <a href="SignOut.php" class="SignOut">Salir</a>
 
                     <?php

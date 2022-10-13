@@ -87,9 +87,7 @@ nav li:hover{
     text-align: center;
 }
 
-img{
-    width: 100px;
-    height: 125px;
+img.logo{
     background-color: lightblue;
 }
 
@@ -174,7 +172,14 @@ a.cursosespecificos{
     color: black;
     font-size: x-large;
     font-weight: bold;
-    margin-top: 50px;
     position: relative;
-    right: 25px;
+    right: 25px;    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 100%;
 }
+/* 
+img.usuario{
+    width: 100px;
+    height: 100px;
+} */
