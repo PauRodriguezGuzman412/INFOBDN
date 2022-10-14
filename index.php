@@ -17,7 +17,7 @@
     <body>
         <header> 
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="100px" height="100px">
+                <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -72,8 +72,10 @@
                             </ul>
                         </nav>
                     </div>
-                    <a href="EditarAlumno.php" class="SignOut"><img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" witdth="100px" height="100px"></a>
-                    <a href="SignOut.php" class="SignOut">Salir</a>
+                    <div class="headerFinal">
+                        <a href="EditarAlumno.php" class="SignOut"><img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" witdth="100px" height="100px"></a>
+                        <a href="SignOut.php" class="SignOut">Salir</a>
+                    </div>
 
                     <?php
                 }else if($_SESSION['rol']=='profesor'){

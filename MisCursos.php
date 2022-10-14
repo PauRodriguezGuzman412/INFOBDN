@@ -17,7 +17,7 @@
     <body>
     <header> 
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="Logo">
+            <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -32,14 +32,20 @@
                     <?php
                 }else if($_SESSION['rol']=='admin'){
                     ?>
+                    <div class="DivMenu">
                         <div class="inicioSession">Eres administrador, bienvenido</div>
-                        <div class="a_fil">
-                            <a class="general" href="index.php">Inicio</a>
-                            <a class="general" href="AdminProfesor.php">Profesores</a><br>
-                            <a class="general" href="AdminCurso.php">Cursos</a>
-                            <li><a href="SignOut.php" class="general">Salir</a></li>
-
-                        </div>
+                        
+                        <nav>
+                            <ul class="generalAll">
+                                <li><a href="index.php" class="general">Inicio</a></li>
+                                <li><a href="AdminProfesor.php" class="general">Profesores</a></li>
+                                <li><a href="AdminCurso.php" class="general">Cursos</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    
+                    <a href="SignOut.php" class="SignOut">Salir</a>
+                        
                     <?php
                 }else if($_SESSION['rol']=='alumno'){
                     $connection= connection();
@@ -58,8 +64,10 @@
                             </ul>
                         </nav>
                     </div>
-                    <a href="EditarAlumno.php" class="SignOut"><img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" width="100px" height="100px"></a>
-                    <a href="SignOut.php" class="SignOut">Salir</a>
+                    <div class="headerFinal">
+                        <a href="EditarAlumno.php" class="SignOut"><img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" witdth="100px" height="100px"></a>
+                        <a href="SignOut.php" class="SignOut">Salir</a>
+                    </div>
 
                     <?php
                 }else if($_SESSION['rol']=='profesor'){

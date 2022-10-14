@@ -87,7 +87,7 @@ nav li:hover{
     text-align: center;
 }
 
-img{
+img.logo{
     width: 100px;
     height: 125px;
     background-color: lightblue;
@@ -205,4 +205,8 @@ a.cursosespecificos{
 
 .details{
     text-align: center;
+}
+
+.headerFinal{
+    background-color: lightblue;
 }

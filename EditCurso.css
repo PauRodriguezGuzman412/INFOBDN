@@ -127,7 +127,7 @@ nav li:hover{
     text-align: center;
 }
 
-img{
+img.logo{
     width: 100px;
     height: 125px;
     background-color: lightblue;
