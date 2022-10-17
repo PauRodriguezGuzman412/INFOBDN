@@ -17,7 +17,7 @@
     <body>
         <header> 
             <div class="div">
-            <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="125px" height="125px">
+            <img src="book-png.png" alt="logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">

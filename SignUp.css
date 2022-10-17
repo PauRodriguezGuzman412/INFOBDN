@@ -99,8 +99,6 @@ nav li:hover{
 }
 
 img{
-    width: 100px;
-    height: 125px;
     background-color: lightblue;
 }
 
@@ -194,12 +192,12 @@ body form{
     text-align: center;
     margin: 0px auto;
     font-size: x-large;
-    height: 200px;
+    height: auto;
 }
 
 .formulario{
     border: 1px solid black;
-    width: 30%;
+    width: 20%;
     background-color: white;
 }
 

@@ -17,7 +17,7 @@
     <body>
         <header> 
                 <div class="div">
-                    <img src="skeletonoc-h22b8kbm.png" alt="Logo">
+                    <img src="book-png.png" class="logo" alt="Logo" witdth="125px" height="125px">
                     <?php
                     if(!isset($_SESSION['rol'])){
                         ?>  <div class="headerAll">
@@ -38,7 +38,6 @@
                                 <a class="general" href="AdminProfesor.php">Profesores</a><br>
                                 <a class="general" href="AdminCurso.php">Cursos</a>
                                 <li><a href="SignOut.php" class="general">Salir</a></li>
-
                             </div>
                         <?php
                     }else if($_SESSION['rol']=='alumno'){

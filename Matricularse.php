@@ -14,7 +14,6 @@
     <body>
         <header> 
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="Logo">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>
@@ -57,7 +56,7 @@
             $result= mysqli_query($connection, $sql);
 
             ?>
-                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=MisCursos.php">
+                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=CursosDisponibles.php">
             <?php
         }
 

@@ -17,7 +17,7 @@
     <body>
         <header> 
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="125px" height="125px">
+                <img src="book-png.png" alt="logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -124,10 +124,12 @@
                         }
                         echo "<div class='CursosTotal'>";
                         foreach($llista as $clave => $valor){
-                            echo "<div class='CursosTotal2'>";
-                            echo $valor['Nom']."<br>";
-                            echo "</div>";
-                        }
+                            if($valor['activo']==1){
+                                echo "<div class='CursosTotal2'>";
+                                    echo $valor['Nom']."<br>";
+                                    echo "</div>";
+                                }
+                            }
                         echo "</div>";
                     }if(!isset($llista)){
                         echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
@@ -139,7 +141,7 @@
                         
                         
                         <?php
-                        $sql1= "SELECT cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '".$_SESSION['email']."'";
+                        $sql1= "SELECT cursos.Nom, cursos.Data_inici, cursos.Data_final, cursos.activo FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '".$_SESSION['email']."'";
                         if($result1= mysqli_query($connection, $sql1)){
                             while($row1= $result1->fetch_assoc()){
                                 $llista1[]= $row1;
@@ -147,16 +149,18 @@
                         }if(!isset($llista1)){
                             echo "<br>NO estás inscrito en ningún curso";
                         }else{
-                            echo "<br>";
-                            echo "<table class='tabla'>";
-                            foreach($llista1 as $clave1 => $valor1){
-                                echo "<tr class='tabla'>";
-                                echo "<td class='tabla'>".$valor1['Nom']." </td>";
-                                echo "<td class='tabla'>".$valor1['Data_inici']." </td>";
-                                echo "<td class='tabla'>".$valor1['Data_final']."<br></td>";
-                                echo "</tr>";
+                                echo "<br>";
+                                echo "<table class='tabla'>";
+                                foreach($llista1 as $clave1 => $valor1){
+                                    if($valor1['activo']==1){
+                                        echo "<tr class='tabla'>";
+                                        echo "<td class='tabla'>".$valor1['Nom']." </td>";
+                                        echo "<td class='tabla'>".$valor1['Data_inici']." </td>";
+                                        echo "<td class='tabla'>".$valor1['Data_final']."<br></td>";
+                                        echo "</tr>";
+                                    }
+                                echo "</table>";
                             }
-                            echo "</table>";
                         }
                         echo "</div>";
                         ?>
@@ -175,9 +179,11 @@
                         }
                         echo "<div class='CursosTotal'>";
                         foreach($llista as $clave => $valor){
-                            echo "<div class='CursosTotal2'>";
-                            echo $valor['Nom'];
-                            echo "</div>";
+                            if($valor['activo']==1){
+                                echo "<div class='CursosTotal2'>";
+                                echo $valor['Nom'];
+                                echo "</div>";
+                            }
                         }
                         echo "</div>";
                     }if(!isset($llista)){
@@ -190,7 +196,7 @@
                             
                             
                             <?php
-                            $sql1= "SELECT cursos.Codi, cursos.Nom, cursos.Data_inici, cursos.Data_final FROM cursos INNER JOIN Profesores ON cursos.Dni_Profesores=Profesores.DNI WHERE cursos.Dni_profesores LIKE '".$_SESSION['DniProfesor']."'";
+                            $sql1= "SELECT cursos.Codi, cursos.Nom, cursos.Data_inici, cursos.Data_final, cursos.activo FROM cursos INNER JOIN Profesores ON cursos.Dni_Profesores=Profesores.DNI WHERE cursos.Dni_profesores LIKE '".$_SESSION['DniProfesor']."'";
                             if($result1= mysqli_query($connection, $sql1)){
                                 while($row1= $result1->fetch_assoc()){
                                     $llista1[]= $row1;
@@ -201,12 +207,15 @@
                                 echo "<br>";
                                 echo "<table class='tabla'>";
                                 foreach($llista1 as $clave1 => $valor1){
+                                    if($valor1['activo']==1){
+
                                     echo "<tr class='tabla'>";
                                     foreach($valor1 as $clave2 => $valor2){
                                         echo "<td class='tabla'>".$valor2."</td>";
                                     }
                                     echo "";echo "<td><a class='blanco' href='Nota.php?id=".$valor1['Codi']."'>Detalles</a></td>";
                                     echo "</tr>";
+                                    }
                                 }
                                 echo "</table>";
                             }
@@ -220,4 +229,7 @@
             }
         ?>
     </body>
+    <footer>
+        <a href="SignInAdmin.php">Configuración</a>
+    </footer>
 </html>

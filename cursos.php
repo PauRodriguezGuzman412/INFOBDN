@@ -17,7 +17,7 @@
     <body>
     <header> 
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="Logo">
+                <img src="book-png.png" alt="Logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -117,7 +117,7 @@
                     <div>
                         <?php
                         $sql1= "SELECT cursos.* FROM cursos";
-                        $sql2= "SELECT profesores.Nom, cursos.Codi FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores=profesores.DNI";
+                        $sql2= "SELECT profesores.Nom, cursos.Codi, cursos.activo FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores=profesores.DNI";
                         if($result2= mysqli_query($connection, $sql2)){
                             while($row2= $result2->fetch_assoc()){
                                 $llista2[]= $row2;
@@ -131,29 +131,31 @@
                             echo "<br>NO estás inscrito en ningún curso";
                         }else{
                             foreach($llista1 as $clave1 => $valor1){
-                                echo "<tr>";
-                                echo "<td><a href='cursos.php'>".$valor1['Nom']."</a></td>";
-                                echo "<td><a href='cursos.php'>Duración: ".$valor1['Data_inici']." - ".$valor1['Data_final']."</a></td>";
-                                foreach($llista2 as $clave2 => $valor2){
-                                    if($valor1['Codi']==$valor2['Codi']){
-                                        echo "<td><a href='cursos.php'>Profesor que imparte el curso: ".$valor2['Nom']."</a></td>";
+                                if($valor1['activo']==1){
+                                    echo "<tr>";
+                                    echo "<td><a href='cursos.php'>".$valor1['Nom']."</a></td>";
+                                    echo "<td><a href='cursos.php'>Duración: ".$valor1['Data_inici']." - ".$valor1['Data_final']."</a></td>";
+                                    foreach($llista2 as $clave2 => $valor2){
+                                        if($valor1['Codi']==$valor2['Codi']){
+                                            echo "<td><a href='cursos.php'>Profesor que imparte el curso: ".$valor2['Nom']."</a></td>";
+                                        }
                                     }
-                                }
-                                $codigo= $valor1['Codi'];
-                                $sql3= "SELECT matriculas.activo FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '$email' AND matriculas.Codi LIKE '$codigo'";
-                                if($result3= mysqli_query($connection, $sql3)){
-                                    while($row3= $result3->fetch_assoc()){
-                                        $llista3[]= $row3;
+                                    $codigo= $valor1['Codi'];
+                                    $sql3= "SELECT matriculas.activo FROM cursos INNER JOIN matriculas ON cursos.Codi=matriculas.Codi INNER JOIN Alumnos ON matriculas.Email_Alumnos=Alumnos.Email WHERE matriculas.Email_Alumnos LIKE '$email' AND matriculas.Codi LIKE '$codigo'";
+                                    if($result3= mysqli_query($connection, $sql3)){
+                                        while($row3= $result3->fetch_assoc()){
+                                            $llista3[]= $row3;
+                                        }
+                                        // print_r();
+                                    }if(isset($llista3) && isset($llista3[$valor1['Codi']]) && $llista3[$valor1['Codi']]['activo']==1){
+                                        $id= 'no';
+                                        echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a></td>";
+                                    }else{
+                                        $id= 'si';
+                                        echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de alta</a></td>";
                                     }
-                                    // print_r();
-                                }if(isset($llista3) && isset($llista3[$valor1['Codi']]) && $llista3[$valor1['Codi']]['activo']==1){
-                                    $id= 'no';
-                                    echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a></td>";
-                                }else{
-                                    $id= 'si';
-                                    echo "<br><td><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de alta</a></td>";
+                                    echo "</tr>"; 
                                 }
-                                echo "</tr>";
                             }
                         }
                     echo "</table>";
@@ -172,16 +174,18 @@
                             $llista[]= $row;
                         }
                         foreach($llista as $clave => $valor){
-                            echo "<div class='divGeneral'>";
-                                echo "<div class='name'>".$valor['Nom']."</div>";
-                                echo "<div class='details'>";
-                                echo "Descripcion: ".$valor['Descripcion']."<br>";
-                                echo "Horas: ".$valor['Hores']."<br>";
-                                echo "Duración: ".$valor['Data_inici']."_";
-                                echo $valor['Data_final'];
+                            if($valor['activo']==1){
+                                echo "<div class='divGeneral'>";
+                                    echo "<div class='name'>".$valor['Nom']."</div>";
+                                    echo "<div class='details'>";
+                                    echo "Descripcion: ".$valor['Descripcion']."<br>";
+                                    echo "Horas: ".$valor['Hores']."<br>";
+                                    echo "Duración: ".$valor['Data_inici']."_";
+                                    echo $valor['Data_final'];
+                                    echo "</div>";
+                                    echo "<div class='link'><a href='Nota.php?id=".$valor['Codi']."'>Detalles</a></div>";
                                 echo "</div>";
-                                echo "<div class='link'><a href='Nota.php?id=".$valor['Codi']."'>Detalles</a></div>";
-                            echo "</div>";
+                            }
                         }
                     }if(!isset($llista)){
                         echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";

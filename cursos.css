@@ -87,12 +87,16 @@ nav li:hover{
     text-align: center;
 }
 
-img{
+/* img{
     width: 100px;
     height: 125px;
     background-color: lightblue;
-}
+} */
 
+img{
+    background-color: lightblue;
+}
+    
 a.admin{
     width: 30%;
     border: black solid 1px;

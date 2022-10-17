@@ -3,6 +3,7 @@
     <?php
         session_start(); 
         include('funciones.php');
+        $connection= connection();
     ?>
     <head>
         <meta charset="UTF-8">
@@ -17,7 +18,7 @@
     <body>
         <header> 
             <div class="div">
-            <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="125px" height="125px">
+                <img src="book-png.png" alt="logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -48,7 +49,6 @@
                         
                     <?php
                 }else if($_SESSION['rol']=='alumno'){
-                    $connection= connection();
                     $query= "SELECT Foto FROM alumnos WHERE Email LIKE '".$_SESSION['email']."'";
                     $resultado= mysqli_query($connection, $query);
                     $final= mysqli_fetch_row($resultado);
@@ -103,7 +103,6 @@
                 
                 $_SESSION['rol']= 'admin';
 
-                $connection= connection();
                 $sql= "UPDATE cursos SET Nom= '$name', Descripcion= '$desc', Hores='$horas', Data_inici='$inici', Data_final='$final', Dni_Profesores='$prof' WHERE Codi=".$_SESSION['id']."";
                 $result= mysqli_query($connection, $sql);
 
@@ -120,7 +119,6 @@
                     <?php
                     if(isset($_SESSION['rol'])){
                         if($_SESSION['rol']=='admin'){
-                            $connection= connection();
                     
                             //GUARDAR NOMBRE PROFESORES
                             $sql= "SELECT Nom FROM profesores";
@@ -137,7 +135,7 @@
                             while($profe2= mysqli_fetch_row($result2)){
                                 $array2[] = $profe2;    
                             }
-
+                            
                             $_SESSION['id']= $_GET['curso'];
 
                             $row= EditarCursos($_GET['curso']);

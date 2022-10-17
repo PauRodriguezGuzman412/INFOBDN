@@ -12,8 +12,12 @@
 </head>
 <body>
 <header> 
+    <?php
+        session_start();
+        include('funciones.php');
+    ?>
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="Logo">
+                <img src="book-png.png" alt="Logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -38,6 +42,10 @@
                         </div>
                     <?php
                 }else if($_SESSION['rol']=='alumno'){
+                    $connection= connection();
+                    $query= "SELECT Foto FROM alumnos WHERE Email LIKE '".$_SESSION['email']."'";
+                    $resultado= mysqli_query($connection, $query);
+                    $final= mysqli_fetch_row($resultado);
                     ?>
                     <div class="DivMenu">
                         <div class="inicioSession">Hola <?php echo($_SESSION['NombreHeader'])  ?>, bienvenido</div>
@@ -47,13 +55,13 @@
                                 <li><a href="index.php" class="general">Inicio</a></li>
                                 <li><a href="MisCursos.php" class="general">Mis Cursos</a></li>
                                 <li><a href="CursosDisponibles.php" class="general">Cursos Disponibles</a></li>
-                                
                             </ul>
                         </nav>
                     </div>
-                    
-                    <a href="SignOut.php" class="SignOut">Salir</a>
-
+                    <div class="headerFinal">
+                        <a href="EditarAlumno.php" class="SignOut"><img src="<?php echo ($final[0]) ?>" alt="usuario" class="SignOut" witdth="100px" height="100px"></a>
+                        <a href="SignOut.php" class="SignOut">Salir</a>
+                    </div>
                     <?php
                 }else if($_SESSION['rol']=='profesor'){
                     ?>
@@ -75,8 +83,6 @@
             </div>
         </header>
     <?php
-        session_start();
-        include('funciones.php');
         
         if (isset($_POST['DNI']) && $_POST['DNI']=='49988375R') {
             
@@ -86,9 +92,16 @@
             $_SESSION['rol']= 'admin';
 
             $connection= connection();
-            $sql= "SELECT DNI Password FROM administrador WHERE DNI= '$dni' AND Password= '$pass'";
+            $sql= "SELECT DNI Password FROM administrador WHERE DNI= '$dni' AND Password= '".md5($pass)."'";
             $result= mysqli_query($connection, $sql);
 
+            if(mysqli_num_rows($result)==1){
+                ?>
+                    <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
+                <?php
+            }else{
+                echo"Error, no hay ningún profesor con esas credenciales";
+            }
             ?>
                 <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
             <?php

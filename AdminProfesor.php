@@ -17,7 +17,7 @@
 <body>   
         <header> 
             <div class="div">
-                <img class="logo" src="skeletonoc-h22b8kbm.png" alt="Logo">
+                <img src="book-png.png" alt="logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -104,7 +104,7 @@
         echo("<td>Activo</td>");
         echo("<td>Editar Profesor</td>");
         echo("<td>Editar Foto</td>");
-        echo("<td>Borrar</td>");
+        echo("<td>Desactivar</td>");
         echo("</tr>");
     
         if(isset($_POST['buscador']) && $_POST['buscador']!=""){

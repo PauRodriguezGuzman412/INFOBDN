@@ -17,7 +17,7 @@
     <body>
     <header> 
             <div class="div">
-            <img src="skeletonoc-h22b8kbm.png" alt="logo" class="logo" witdth="125px" height="125px">
+            <img src="book-png.png" alt="logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -121,6 +121,7 @@
                                         $llista3[]= $row3;
                                     }
                                 }
+                                if($valor1['activo']==1){
                                 
                                 echo "<div class='divGeneral'>";
                                     echo "<div class='name'>".$valor1['Nom']."</div>";
@@ -140,10 +141,12 @@
                                         }else if($llista3[$clave1]['Data_final']<date("Y-m-d")){
                                             echo "El curso ya ha acabado";
                                         }else{
-                                            echo "El curso no ha empezado todavía";
+                                            $id= 'no';
+                                            echo "<br><a href='Matricularse.php?id=".$id."&email=".$email."&valor=".$valor1['Codi']."'>Darse de baja</a>";
                                         }
                                     echo "</div>";
                                 echo "</div>";
+                                    }
                             }
                         }
                         ?>
