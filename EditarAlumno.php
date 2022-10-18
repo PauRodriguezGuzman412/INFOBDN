@@ -110,11 +110,10 @@
 
         <form class='formulario' action="EditarAlumno.php" method="POST" name="InicioSession">
                     <?php
-                    if(isset($_SESSION['rol'])){
                         if($_SESSION['rol']=='alumno'){
                             $connection= connection();
                     
-                            $sql= "SELECT * FROM alumnos";
+                            $sql= "SELECT * FROM alumnos WHERE Email='".$_SESSION['email']."'";
                             $result= mysqli_query($connection, $sql);
 
                             $row= mysqli_fetch_assoc($result);
@@ -131,7 +130,7 @@
         <?php
             }else{
                 echo"No deberías estar aquí";
-            }}
+            }
         ?>
 </body>
 </html>

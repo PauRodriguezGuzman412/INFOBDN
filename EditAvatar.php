@@ -100,6 +100,10 @@
         $_SESSION['rol']= 'admin';
        
         $connection= connection();
+
+        $sql2= "DELETE Foto FROM profesores WHERE DNI= '$dni'";
+        $result2= mysqli_query($connection, $sql2);
+        
         $sql= "UPDATE profesores SET Foto='$directorio' WHERE DNI= '$dni'";
         $result= mysqli_query($connection, $sql);
 

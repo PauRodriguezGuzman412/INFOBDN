@@ -103,7 +103,7 @@
             ?>
             <form class="formulario" action="<?php echo "PonerNota.php?Email=".$_GET['Email']."&id=".$_GET['id']."" ?> " method="POST" name="PonerNota">
                 <h1> Poner Nota </h1>
-                <p>Nota: <input type="number" name="Nota" min="0" max="10" required>
+                <p>Nota: <input type="number" name="Nota" min="1" max="10" required>
                 <button type="submit">Enviar</button>
             </form>
             <a href=" <?php echo "Nota.php?id=".$_GET['id']."" ?> ">Volver atrás</a>

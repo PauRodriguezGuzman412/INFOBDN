@@ -83,14 +83,15 @@
             $DNI= $_POST['DNI'];
             $pass= $_POST['password'];
             
-            $_SESSION['rol']= 'profesor';
-            $_SESSION['DniProfesor']= $DNI;
+
 
             $connection= connection();
-            $sql= "SELECT DNI, Password FROM profesores WHERE DNI= '$DNI' AND Password= '".md5($pass)."'";
+            $sql= "SELECT DNI, Password FROM profesores WHERE DNI= '$DNI' AND activo= 1 AND Password= '".md5($pass)."'";
             $result= mysqli_query($connection, $sql);
 
             if(mysqli_num_rows($result)==1){
+                $_SESSION['rol']= 'profesor';
+                $_SESSION['DniProfesor']= $DNI;
                 $sql1= "SELECT Nom FROM profesores WHERE DNI= '$DNI'";
                 $nombre= mysqli_query($connection, $sql1);
                 $a= mysqli_fetch_assoc($nombre);

@@ -173,26 +173,26 @@
                         while($row= $result->fetch_assoc()){
                             $llista[]= $row;
                         }
-                        foreach($llista as $clave => $valor){
-                            if($valor['activo']==1){
-                                echo "<div class='divGeneral'>";
-                                    echo "<div class='name'>".$valor['Nom']."</div>";
-                                    echo "<div class='details'>";
-                                    echo "Descripcion: ".$valor['Descripcion']."<br>";
-                                    echo "Horas: ".$valor['Hores']."<br>";
-                                    echo "Duración: ".$valor['Data_inici']."_";
-                                    echo $valor['Data_final'];
+                        if(isset($llista)){
+                           foreach($llista as $clave => $valor){
+                                if($valor['activo']==1){
+                                    echo "<div class='divGeneral'>";
+                                        echo "<div class='name'>".$valor['Nom']."</div>";
+                                        echo "<div class='details'>";
+                                        echo "Descripcion: ".$valor['Descripcion']."<br>";
+                                        echo "Horas: ".$valor['Hores']."<br>";
+                                        echo "Duración: ".$valor['Data_inici']."_";
+                                        echo $valor['Data_final'];
+                                        echo "</div>";
+                                        echo "<div class='link'><a href='Nota.php?id=".$valor['Codi']."'>Detalles</a></div>";
                                     echo "</div>";
-                                    echo "<div class='link'><a href='Nota.php?id=".$valor['Codi']."'>Detalles</a></div>";
-                                echo "</div>";
-                            }
+                                }
+                            } 
                         }
+                        
                     }if(!isset($llista)){
-                        echo "<META HTTP-EQUIV='REFRESH' CONTENT='0;URL=AdminCurso.php'>";
+                        echo "No eres profesor de ningún curso";
                     }
-                    ?>
-
-                    <?php
                 }
             }
         ?>
