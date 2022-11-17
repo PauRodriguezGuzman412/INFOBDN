@@ -1,0 +1,16 @@
+Administrador
+
+- DNI (49988375R), Password (admin)
+
+
+Alumnos
+
+- Email (1@gmail.com), Password (1)
+- Email (test@gmail.com), Password (test)
+
+Profesores
+
+- DNI (0), Password (0)
+- DNI (1), Password (1)
+- DNI (123), Password (123)
+- DNI (22), Password (22)

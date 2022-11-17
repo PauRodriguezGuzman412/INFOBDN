@@ -114,7 +114,7 @@
             
             $row= mysqli_fetch_assoc($result);
 ?>
-<form class='formulario' action="EditProfesor.php" method="POST" name="InicioSession">
+<form class='formulario' action="EditProfesor.php?curso=<?php echo$_GET['curso']?>" method="POST" name="InicioSession">
     <h1>Editar profesor </h1>
     <p>DNI: <input type="text" name="DNI" value="<?php echo($row['DNI']); ?>" required></p>    
     <p>Nombre: <input type="text" name="Nom" value="<?php echo($row['Nom']); ?>" required></p>    

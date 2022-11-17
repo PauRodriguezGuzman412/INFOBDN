@@ -100,7 +100,7 @@
 
                     <div>
                         <?php
-                        $sql1= "SELECT cursos.* FROM cursos WHERE cursos.Codi NOT IN (SELECT Codi FROM matriculas WHERE '".$email."'=matriculas.Email_Alumnos)";
+                        $sql1= "SELECT cursos.* FROM cursos WHERE cursos.Codi NOT IN (SELECT Codi FROM matriculas WHERE '".$email."'=matriculas.Email_Alumnos) AND Data_inici>'".date("Y-m-d")."'";
                         $sql2= "SELECT profesores.Nom, cursos.Codi FROM profesores INNER JOIN cursos ON cursos.Dni_Profesores=profesores.DNI ";
                         if($result2= mysqli_query($connection, $sql2)){
                             while($row2= $result2->fetch_assoc()){

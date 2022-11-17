@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-10-2022 a las 21:48:41
+-- Tiempo de generación: 17-11-2022 a las 21:35:25
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `infobdn`
 --
+CREATE DATABASE IF NOT EXISTS `infobdn` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `infobdn`;
 
 -- --------------------------------------------------------
 
@@ -61,7 +63,7 @@ CREATE TABLE `alumnos` (
 
 INSERT INTO `alumnos` (`Email`, `DNI`, `Nom`, `Password`, `Cognoms`, `Edat`, `Foto`) VALUES
 ('1@gmail.com', '1uwu', 'Juan', 'c4ca4238a0b923820dcc509a6f75849b', 'Juan', 69, 'imgAlumnos/1-original.jpg'),
-('test@gmail.com', '123', 'pau', '202cb962', 'rodriguez', 19, '');
+('test@gmail.com', '123', 'pau', '098f6bcd4621d373cade4e832627b4f6', 'rodriguez', 19, '');
 
 -- --------------------------------------------------------
 
@@ -85,10 +87,11 @@ CREATE TABLE `cursos` (
 --
 
 INSERT INTO `cursos` (`Codi`, `Nom`, `Descripcion`, `Hores`, `Data_inici`, `Data_final`, `Dni_Profesores`, `activo`) VALUES
-(1, 'Mates', 'Numeros', 69, '2022-10-07', '2022-10-07', '1', 1),
+(1, 'Mates', 'Numeros', 69, '2022-12-15', '2022-12-22', '1', 1),
 (2, 'English', 'Loads of words', 69, '2022-10-18', '2022-11-06', '1', 1),
 (3, 'Castellano', 'Palabras en español', 88, '2022-09-21', '2022-10-14', NULL, 1),
-(4, 'Català', 'Paraules en català', 88, '2022-09-21', '2022-09-29', '22', 1);
+(4, 'Català', 'Paraules en català', 88, '2022-09-21', '2022-09-29', '22', 1),
+(5, 'H', 'H', 1, '2022-11-16', '2022-12-01', '0', 1);
 
 -- --------------------------------------------------------
 
@@ -132,20 +135,10 @@ CREATE TABLE `profesores` (
 --
 
 INSERT INTO `profesores` (`DNI`, `Nom`, `Cognoms`, `Password`, `Titol`, `Foto`, `activo`) VALUES
-('0', 'Profesor', 'Profesor', '83c2f0ea111a68a80ec383418750b37b', 'Profesor', 'img/Profesor-fa3fe7c4b0ec84278f7511d85cb48e1b.jpg', 1),
+('0', 'Profesor', 'Profesor', 'cfcd208495d565ef66e7dff9f98764da', 'Profesor', 'img/0-skeletonoc-h22b8kbm.png', 1),
 ('1', 'assadaasdsad', 'testfdasdsfasdf', 'c4ca4238a0b923820dcc509a6f75849b', 'test', 'img/1-3-wpa9xvcq.png', 1),
-('12', 'pau', 'apellidos', '7e5bf5436ee5318727c8c7b5ace219a1', 'sdfsd', 'img/12-original.jpg', 1),
-('121212', '1ffdfdfdfdfdfd', '1', '28c8edde3d61a0411511d3b1866f0636', '1', 'img/121212-original.jpg', 1),
 ('123', 'holi', 'holo', '202cb962ac59075b964b07152d234b70', '69', 'img/123-original.jpg', 0),
-('22', 'aAAAAAAAAAAA', 'oOOOOOOOOOOOOOOOOOOOO', '098f6bcd4621d373cade4e832627b4f6', 'test', 'img/22-original.jpg\r\n', 0),
-('45', '45', '45', '6c8349cc7260ae62e3b1396831a8398f', '45', 'img/45-original.jpg', 1),
-('49988375R', 'eee', 'ee', 'd2f2297d6e829cd3493aa7de4416a18f', 'eee', 'img/49988375R-3-wpa9xvcq.png', 1),
-('90', '90', '90', '8613985ec49eb8f757ae6439e879bb2a', '', 'img/90-skeletonoc-h22b8kbm.png', 1),
-('b', 'b', 'b', '92eb5ffee6ae2fec3ad71c777531578f', 'b', 'img/b-original.jpg', 1),
-('ffff', 'ffff', 'fff', '343d9040a671c45832ee5381860e2996', 'ffff', 'img/ffff-3-wpa9xvcq.png', 1),
-('nuevo1', 'nuevo1', 'nuevo1', '6a0ad8581e57688a25a5f6f1009800a3', 'nuevo1', 'img/nuevo1-FaPvxpBX0AAFwNQ.jpg', 1),
-('test', 'test', 'test', '28b662d883b6d76fd96e4ddc5e9ba780', 'test', 'img/test-3-wpa9xvcq.png', 1),
-('test2', 'test2', 'test2', 'ad0234829205b9033196ba818f7a872b', 'test2', '', 1);
+('22', 'aAAAAAAAAAAA', 'oOOOOOOOOOOOOOOOOOOOO', 'b6d767d2f8ed5d21a44b0e5886680cb9', 'test', 'img/22-original.jpg\r\n', 0);
 
 --
 -- Índices para tablas volcadas
@@ -185,7 +178,7 @@ ALTER TABLE `profesores`
 -- AUTO_INCREMENT de la tabla `cursos`
 --
 ALTER TABLE `cursos`
-  MODIFY `Codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Codi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

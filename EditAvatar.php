@@ -100,16 +100,20 @@
         $_SESSION['rol']= 'admin';
        
         $connection= connection();
+
+        $sql2= "DELETE Foto FROM profesores WHERE DNI= '$dni'";
+        $result2= mysqli_query($connection, $sql2);
+        
         $sql= "UPDATE profesores SET Foto='$directorio' WHERE DNI= '$dni'";
         $result= mysqli_query($connection, $sql);
 
         ?>
-            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminProfesor.php">
+            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
         <?php
     }
 ?>
 
-<form class='formulario' action="EditAvatar.php?dni=<?php echo($_GET['dni']) ?>&foto=<?php echo($_GET['foto'])?>" method="POST" name="InicioSession" ENCTYPE="multipart/form-data">
+<form class='formulario' action="AdminProfesor.php" method="POST" name="InicioSession" ENCTYPE="multipart/form-data">
     <?php
         if(isset($_SESSION['rol'])){
             if($_SESSION['rol']=='admin'){

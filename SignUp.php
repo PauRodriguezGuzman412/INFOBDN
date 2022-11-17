@@ -77,6 +77,7 @@
     <?php
         session_start();
         include('funciones.php');
+        $connection= connection();
         
         if (!empty($_POST['Email'])) {
             $Email= $_POST['Email'];
@@ -98,15 +99,20 @@
                 move_uploaded_file ($_FILES['Foto']['tmp_name'], $nombreDirectorio . $nombreFichero);
             }else print ("No se ha podido subir el fichero\n");
     
-    
-            $connection= connection();
-            $sql= "INSERT INTO alumnos (Email,DNI,Nom,Cognoms,Password,Edat,Foto) VALUES ('$Email', '$DNI', '$name', '$surnames', md5('$pass'), '$Edat','$directorio')";
-            $result= mysqli_query($connection, $sql);
-    
+            $sql1= " SELECT Email FROM alumnos WHERE DNI LIKE '$Email'";
+            $result1= mysqli_query($connection, $sql1);
+            $res= mysqli_num_rows($result1);
+            if($res==0){  
+                $sql= "INSERT INTO alumnos (Email,DNI,Nom,Cognoms,Password,Edat,Foto) VALUES ('$Email', '$DNI', '$name', '$surnames', md5('$pass'), '$Edat','$directorio')";
+                $result= mysqli_query($connection, $sql);
 
-            ?>
-                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
-            <?php
+                ?>
+                    <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=index.php">
+                <?php
+            }else{
+                echo"Error el email ya existe";
+            }
+            
         }
     ?>
 

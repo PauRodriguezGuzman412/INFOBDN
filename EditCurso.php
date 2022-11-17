@@ -92,6 +92,9 @@
         <?php
 
         if (!empty($_POST['Nom'])) {
+            // if($_POST['Data_final']<date("Y-m-d H:i:s")){
+            //     echo "La fecha final es menor que la fecha actual";
+            // }else
             if($_POST['Data_inici']<$_POST['Data_final']){
                 $name= $_POST['Nom'];
                 $desc= $_POST['Descripcion'];
@@ -115,7 +118,7 @@
         }
         ?>
 
-        <form class='formulario' action="EditCurso.php" method="POST" name="InicioSession">
+        <form class='formulario' action="EditCurso.php?curso= <?php echo$_GET['curso']?> " method="POST" name="InicioSession">
                     <?php
                     if(isset($_SESSION['rol'])){
                         if($_SESSION['rol']=='admin'){
@@ -135,15 +138,14 @@
                             while($profe2= mysqli_fetch_row($result2)){
                                 $array2[] = $profe2;    
                             }
-                            
                             $_SESSION['id']= $_GET['curso'];
-
+    
                             $row= EditarCursos($_GET['curso']);
                     ?>
             <h1>Edit Curso</h1>
             <p>Nombre del curso: <input type="text" name="Nom" required value="<?php echo($row['Nom']); ?>"></p>    
             <p>Descripción: <input type="text" name="Descripcion" required value="<?php echo($row['Descripcion']); ?>"></p>    
-            <p>Horas: <input type="text" name="Hores" required value="<?php echo($row['Hores']); ?>"></p>
+            <p>Horas: <input type="number" name="Hores" required value="<?php echo($row['Hores']); ?>"></p>
             <p>Data inicio: <input type="date" name="Data_inici" required value="<?php echo($row['Data_inici']); ?>"></p>
             <p>Data final: <input type="date" name="Data_final" required value="<?php echo($row['Data_final']) ?>"></p>
             <p>

@@ -3,6 +3,7 @@
     <?php
         session_start(); 
         include('funciones.php');
+        $connection= connection();
     ?>
     <head>
         <meta charset="UTF-8">
@@ -17,7 +18,7 @@
     <body>
         <header> 
             <div class="div">
-                <img src="skeletonoc-h22b8kbm.png" alt="Logo">
+                <img src="book-png.png" alt="Logo" class="logo" witdth="125px" height="125px">
                 <?php
                 if(!isset($_SESSION['rol'])){
                     ?>  <div class="headerAll">
@@ -104,14 +105,19 @@
             move_uploaded_file ($_FILES['Foto']['tmp_name'], $nombreDirectorio . $nombreFichero);
         }else print ("No se ha podido subir el fichero\n");
 
-
-        $connection= connection();
-        $sql= "INSERT INTO profesores (DNI,Nom,Cognoms,Password,Titol,Foto) VALUES ('$dni', '$name', '$surnames', md5('$pass'), '$title','$directorio')";
-        $result= mysqli_query($connection, $sql);
-
-        ?>
-            <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminProfesor.php">
-        <?php
+        $sql1= " SELECT DNI FROM profesores WHERE DNI LIKE '$dni'";
+        $result1= mysqli_query($connection, $sql1);
+        $res= mysqli_num_rows($result1);
+        if($res==0){            
+            $sql= "INSERT INTO profesores (DNI,Nom,Cognoms,Password,Titol,Foto) VALUES ('$dni', '$name', '$surnames', md5('$pass'), '$title','$directorio')";
+            $result= mysqli_query($connection, $sql);
+    
+            ?>
+                <META HTTP-EQUIV="REFRESH" CONTENT="0;URL=AdminProfesor.php">
+            <?php
+        }else{
+            echo"Error el dni ya existe";
+        }
     }
     ?>
     <?php

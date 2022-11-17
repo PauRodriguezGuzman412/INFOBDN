@@ -86,7 +86,9 @@
         <?php
             
             if (!empty($_POST['Nom'])) {
-                if($_POST['Data_inici']<$_POST['Data_final']){
+                if($_POST['Data_final']<date("Y-m-d H:i:s")){
+                    echo "La fecha final es menor que la fecha actual";
+                }else if($_POST['Data_inici']<$_POST['Data_final']){
                     $name= $_POST['Nom'];
                     $desc= $_POST['Descripcion'];
                     $horas= $_POST['Hores'];
@@ -138,7 +140,7 @@
             <h1>Registrar Curso</h1>
             <p>Nombre del curso: <input type="text" name="Nom" required></p>    
             <p>Descripción: <input type="text" name="Descripcion" required></p>    
-            <p>Horas: <input type="text" name="Hores" required></p>
+            <p>Horas: <input type="number" name="Hores" required></p>
             <p>Data inicio: <input type="date" name="Data_inici" required></p>
             <p>Data final: <input type="date" name="Data_final" required></p>
             <p>
